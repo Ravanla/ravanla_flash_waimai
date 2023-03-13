@@ -62,7 +62,7 @@
     <el-row :gutter="20" >
       <el-col :span="12">
         <el-collapse   class="section">
-          <el-collapse-item title="2019双11All in cloud低至一折" name="1">
+          <el-collapse-item title="2021双11All in cloud低至一折" name="1">
             <div><a href="https://www.aliyun.com/1111/2019/home?userCode=alts44ap" target="_blank">点击查看详情</a></div>
           </el-collapse-item>
           <el-collapse-item title="主机爆款限时优惠" name="2">

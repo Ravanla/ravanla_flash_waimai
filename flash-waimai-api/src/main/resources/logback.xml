@@ -29,7 +29,7 @@
 	<logger name="com.alibaba.druid" level="DEBUG" />
 
 	<!-- snow_credit的日志级别 -->
-	<logger name="cn.enilu.flash" level="DEBUG" />
+	<logger name="cn.ravanla.flash" level="DEBUG" />
 
 	<!-- root级别的logger -->
 	<root level="INFO">

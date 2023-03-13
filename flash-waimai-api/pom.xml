@@ -4,7 +4,7 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <parent>
         <artifactId>flash-waimai</artifactId>
-        <groupId>cn.enilu</groupId>
+        <groupId>cn.ravanla</groupId>
         <version>1.0</version>
     </parent>
     <packaging>war</packaging>
@@ -13,7 +13,7 @@
     <artifactId>flash-waimai-api</artifactId>
     <dependencies>
         <dependency>
-            <groupId>cn.enilu</groupId>
+            <groupId>cn.ravanla</groupId>
             <artifactId>flash-waimai-core</artifactId>
             <version>${project.version}</version>
         </dependency>
@@ -29,6 +29,10 @@
             <groupId>org.projectlombok</groupId>
             <artifactId>lombok</artifactId>
             <version>1.18.8</version>
+        </dependency>
+        <dependency>
+            <groupId>org.springframework.boot</groupId>
+            <artifactId>spring-boot-starter-data-mongodb</artifactId>
         </dependency>
     </dependencies>
 
