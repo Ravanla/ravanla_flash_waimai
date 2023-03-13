@@ -1,0 +1,23 @@
+<ContractRoot>
+	<TcpCont>
+		<TransactionID>6001030001201504010000000001</TransactionID>
+		<CurrentPackage>1</CurrentPackage>
+	</TcpCont>
+	<SvcCont>
+		<SOO type="QRY_PHONE_NBR_RES_REQ_TYPE">
+			<PUB_REQ>
+				<SOO_ID>1</SOO_ID>
+			</PUB_REQ>
+			<QRY_REQ>
+				<QRY_TYPE TYPE_CD="00005">
+					<PARAM PARAM_CD="000050001" PARAM_VALUE="600103">省份标识，不能为空</PARAM>
+					<PARAM PARAM_CD="000050002" PARAM_VALUE="8320100">本地网标识，必传</PARAM>
+					<ATTR CD="20020049">续签合约标识</ATTR>
+				</QRY_TYPE>
+			</QRY_REQ>
+			<DEBUG>0</DEBUG>
+			<FIELD>PHONE_NBR</FIELD>
+			<FIELD>PHONE_NBR_LEVEL_ID</FIELD>
+		</SOO>
+	</SvcCont>
+</ContractRoot>

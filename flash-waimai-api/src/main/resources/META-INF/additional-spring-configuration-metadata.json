@@ -1,0 +1,13 @@
+{
+  "properties": [
+    {
+      "name": "flash.waimai.mongodb.init",
+      "type": "java.lang.String",
+      "description": "Description for flash.waimai.mongodb.init."
+    },
+    {
+      "name": "flash.waimai.mongodb.init",
+      "type": "java.lang.String",
+      "description": "Description for flash.waimai.mongodb.init."
+    }
+  ] }
