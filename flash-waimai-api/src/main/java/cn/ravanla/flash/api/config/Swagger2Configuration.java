@@ -53,7 +53,7 @@ public class Swagger2Configuration {
 
     // 声明一个私有方法，返回一个 ApiInfo 类型的对象，用于创建和配置 API 的基本信息
     private ApiInfo apiInfo() {
-// 返回一个 ApiInfoBuilder 对象，并设置其标题、描述、服务条款、联系方式、版本等属性
+        // 返回一个 ApiInfoBuilder 对象，并设置其标题、描述、服务条款、联系方式、版本等属性
         return new ApiInfoBuilder()
                 .title("flash-waimai api")
                 .description("快速构建外卖系统")

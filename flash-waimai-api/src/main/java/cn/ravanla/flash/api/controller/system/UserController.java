@@ -43,23 +43,33 @@ import java.util.List;
 public class UserController extends BaseController {
     @Autowired
     private UserService userService;
+
     @RequestMapping(value = "/list",method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.USER})
+    // 注释：通过两个参数account和name实现了分页查询的功能
     public Object list(@RequestParam(required = false) String account,
                        @RequestParam(required = false) String name){
+
         Page page = new PageFactory().defaultPage();
         if(StringUtils.isNotEmpty(name)){
+            // // 使用SearchFilter.build()方法构建查询条件
             page.addFilter(SearchFilter.build("name", SearchFilter.Operator.LIKE, name));
         }
         if(StringUtils.isNotEmpty(account)){
             page.addFilter(SearchFilter.build("account", SearchFilter.Operator.LIKE, account));
         }
         page.addFilter(SearchFilter.build("status",SearchFilter.Operator.GT,0));
+
+        // 使用userService.queryPage()方法进行查询
         page = userService.queryPage(page);
+
+        // 将查询出的结果转换为List
+        // 使用UserWarpper函数将List结果转换为Map类型
         List list = (List) new UserWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp();
         page.setRecords(list);
         return Rets.success(page);
     }
+
     @RequestMapping(method = RequestMethod.POST)
     @BussinessLog(value = "编辑管理员", key = "name", dict = UserDict.class)
     @RequiresPermissions(value = {Permission.USER_EDIT})
@@ -82,6 +92,7 @@ public class UserController extends BaseController {
         return Rets.success();
     }
 
+
     @BussinessLog(value = "删除管理员", key = "userId", dict = UserDict.class)
     @RequestMapping(method = RequestMethod.DELETE)
     @RequiresPermissions(value = {Permission.USER_DEL})
@@ -97,21 +108,53 @@ public class UserController extends BaseController {
         userService.update(user);
         return Rets.success();
     }
+
+
+//    @BussinessLog(value="设置用户角色",key="userId",dict=UserDict.class)
+//    @RequestMapping(value="/setRole",method = RequestMethod.GET)
+//    @RequiresPermissions(value = {Permission.USER_EDIT})
+//    public Object setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds) {
+//        if (ToolUtil.isOneEmpty(userId, roleIds)) {
+//            throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
+//        }
+//        //不能修改超级管理员
+//        if (userId.equals(Const.ADMIN_ID)) {
+//            throw new ApplicationException(BizExceptionEnum.CANT_CHANGE_ADMIN);
+//        }
+//        User user = userService.get(userId);
+//        user.setRoleid(roleIds);
+//        userService.update(user);
+//        return Rets.success();
+//    }
+
+    // 这段代码用于设置用户角色，
+    // @BussinessLog实现的功能是设置用户角色，key参数为userId，dict参数为UserDict.class
+    // 记录业务日志的注释，用于跟踪业务过程中的一些重要信息，如：用户输入的参数、执行结果等。这样可以方便调试和分析问题。
     @BussinessLog(value="设置用户角色",key="userId",dict=UserDict.class)
     @RequestMapping(value="/setRole",method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.USER_EDIT})
     public Object setRole(@RequestParam("userId") Long userId, @RequestParam("roleIds") String roleIds) {
+
+        // 检查RequestParam值userId和roleIds是否为空，
         if (ToolUtil.isOneEmpty(userId, roleIds)) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
+
         }
-        //不能修改超级管理员
+
+        // 不能修改超级管理员
         if (userId.equals(Const.ADMIN_ID)) {
             throw new ApplicationException(BizExceptionEnum.CANT_CHANGE_ADMIN);
+
         }
         User user = userService.get(userId);
+
+        // 不为空则获取用户实体，并设置roleid为roleIds，
         user.setRoleid(roleIds);
+
+        // 最后更新用户实体并返回操作成功信息。
         userService.update(user);
         return Rets.success();
+
     }
 
 }

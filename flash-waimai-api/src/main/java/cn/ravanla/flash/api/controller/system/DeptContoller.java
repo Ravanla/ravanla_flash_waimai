@@ -24,8 +24,8 @@ import java.util.List;
 /**
  * DeptContoller
  *
- *@Author ravanla
  * @version 2020/9/15 0015
+ * @Author ravanla
  */
 @RestController
 @RequestMapping("/dept")
@@ -34,20 +34,25 @@ public class DeptContoller extends BaseController {
 
     @Autowired
     private DeptService deptService;
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.DEPT})
-    public Object list(){
+    public Object list() {
         List<DeptNode> list = deptService.queryAllNode();
         return Rets.success(list);
     }
+
     @RequestMapping(method = RequestMethod.POST)
     @BussinessLog(value = "编辑部门", key = "simplename", dict = DeptDict.class)
     @RequiresPermissions(value = {Permission.DEPT_EDIT})
-    public Object save(@ModelAttribute @Valid Dept dept){
+    public Object save(@ModelAttribute @Valid Dept dept) {
+        // 检查输入的参数是否为空，如果为空则抛出异常
         if (ToolUtil.isOneEmpty(dept, dept.getSimplename())) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }
-        if(dept.getId()!=null){
+
+        // 检查输入的参数是否有id，如果有则更新部门信息
+        if (dept.getId() != null) {
             Dept old = deptService.get(dept.getId());
             LogObjectHolder.me().set(old);
             old.setPid(dept.getPid());
@@ -57,17 +62,21 @@ public class DeptContoller extends BaseController {
             old.setTips(dept.getTips());
             deptService.deptSetPids(old);
             deptService.update(old);
-        }else {
+        // 如果没有id则新建部门信息
+        } else {
             deptService.deptSetPids(dept);
             deptService.insert(dept);
         }
+
+        // 返回操作成功
         return Rets.success();
     }
+
     @RequestMapping(method = RequestMethod.DELETE)
     @BussinessLog(value = "删除部门", key = "id", dict = DeptDict.class)
     @RequiresPermissions(value = {Permission.DEPT_DEL})
-    public Object remove(@RequestParam  Long id){
-        logger.info("id:{}",id);
+    public Object remove(@RequestParam Long id) {
+        logger.info("id:{}", id);
         if (ToolUtil.isEmpty(id)) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }

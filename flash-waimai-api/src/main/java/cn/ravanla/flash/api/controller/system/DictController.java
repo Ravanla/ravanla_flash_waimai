@@ -41,11 +41,17 @@ public class DictController extends BaseController {
     @RequiresPermissions(value = {Permission.DICT})
     public Object list(String name) {
 
+        // 该代码段用于查找字典信息
+        // 检查传入参数name是否为空
         if(StringUtils.isNotEmpty(name)){
-            List<Dict> list = dictService.findByNameLike(name);
+            // 若参数name不为空，则通过name模糊查找字典信息
+            List list = dictService.findByNameLike(name);
+            // 返回查找结果
             return Rets.success(new DictWarpper(BeanUtil.objectsToMaps(list)).warp());
         }
-        List<Dict> list = dictService.findByPid(0L);
+        // 若参数name为空，则通过pid查找字典信息
+        List list = dictService.findByPid(0L);
+        // 返回查找结果
         return Rets.success(new DictWarpper(BeanUtil.objectsToMaps(list)).warp());
     }
 

@@ -36,14 +36,14 @@ public abstract class BaseEntity implements Serializable {
 
     /*
 
-    @Id注解表示该属性是主键，@GeneratedValue注解表示主键自动生成。
+    @Id注解表示该属性是主键，@GeneratedValue注解表示主键 自动生成。
     */
     @Id
     @GeneratedValue
     private Long id;
     /*
 
-    @CreatedDate注解表示该属性在创建时自动生成时间，
+    @CreatedDate注解表示该属性在创建时 自动生成时间，
     @Column注解可以自定义数据库表字段名、类型、注释等信息。
     */
     @CreatedDate
@@ -51,7 +51,7 @@ public abstract class BaseEntity implements Serializable {
     private Date createTime;
     /*
 
-    @CreatedBy注解表示该属性在创建时自动生成创建人id，
+    @CreatedBy注解表示该属性在创建时 自动生成创建人id，
     @Column注解可以自定义数据库表字段名、类型、注释等信息。
     */
     @Column(name = "create_by",columnDefinition="bigint COMMENT '创建人'")
@@ -59,7 +59,7 @@ public abstract class BaseEntity implements Serializable {
     private Long createBy;
     /*
 
-    @LastModifiedDate注解表示该属性在修改时自动生成时间，
+    @LastModifiedDate注解表示该属性在修改时 自动生成时间，
     @Column注解可以自定义数据库表字段名、类型、注释等信息。
     */
     @LastModifiedDate
@@ -67,7 +67,7 @@ public abstract class BaseEntity implements Serializable {
     private Date modifyTime;
     /*
 
-    @LastModifiedBy注解表示该属性在修改时自动生成最后修改人id，
+    @LastModifiedBy注解表示该属性在修改时 自动生成最后修改人id，
     @Column注解可以自定义数据库表字段名、类型、注释等信息。
     */
     @LastModifiedBy

@@ -31,8 +31,8 @@ import java.util.Map;
 /**
  * MenuController
  *
- *@Author ravanla
  * @version 2020/9/12 0012
+ * @Author ravanla
  */
 @RestController
 @RequestMapping("/menu")
@@ -53,20 +53,25 @@ public class MenuController extends BaseController {
     @BussinessLog(value = "编辑菜单", key = "name", dict = MenuDict.class)
     @RequiresPermissions(value = {Permission.MENU_EDIT})
     public Object save(@ModelAttribute @Valid Menu menu) {
-        //判断是否存在该编号
-        if(menu.getId()==null) {
+        // 判断是否存在该编号
+        // 检查菜单ID是否有值
+        if (menu.getId() == null) {
+            // 根据输入的菜单代码在常量工厂中查找菜单名称
             String existedMenuName = ConstantFactory.me().getMenuNameByCode(menu.getCode());
+            // 检查菜单名称是否存在
             if (ToolUtil.isNotEmpty(existedMenuName)) {
+                // 如果存在抛出异常
                 throw new ApplicationException(BizExceptionEnum.EXISTED_THE_MENU);
             }
+            // 设置菜单状态为已启用
             menu.setStatus(MenuStatus.ENABLE.getCode());
         }
 
-        //设置父级菜单编号
+        // 设置父级菜单编号
         menuService.menuSetPcode(menu);
-        if(menu.getId()==null){
+        if (menu.getId() == null) {
             menuService.insert(menu);
-        }else {
+        } else {
             menuService.update(menu);
         }
         return Rets.success();
@@ -80,11 +85,11 @@ public class MenuController extends BaseController {
         if (ToolUtil.isEmpty(id)) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }
-        //演示环境不允许删除初始化的菜单
-        if(id.intValue()<70){
+        // 演示环境不允许删除初始化的菜单
+        if (id.intValue() < 70) {
             return Rets.failure("演示环境不允许删除初始菜单");
         }
-        //缓存菜单的名称
+        // 缓存菜单的名称
         LogObjectHolder.me().set(ConstantFactory.me().getMenuName(id));
         menuService.delMenuContainSubMenus(id);
         return Rets.success();
@@ -93,32 +98,73 @@ public class MenuController extends BaseController {
     /**
      * 获取菜单树
      */
+
     @RequestMapping(value = "/menuTreeListByRoleId", method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.MENU})
+
+    // public Object menuTreeListByRoleId(Integer roleId) {
+    // List<Long> menuIds = menuService.getMenuIdsByRoleId(roleId);
+    // List<ZTreeNode> roleTreeList = null;
+    // if (ToolUtil.isEmpty(menuIds)) {
+    // roleTreeList = menuService.menuTreeList(null);
+    // } else {
+    // roleTreeList = menuService.menuTreeList(menuIds);
+    // }
+    // List<Node> list = menuService.generateMenuTreeForRole(roleTreeList);
+    //
+    // // element-ui中tree控件中如果选中父节点会默认选中所有子节点，所以这里将所有非叶子节点去掉
+    // Map<Long,ZTreeNode> map = cn.ravanla.flash.utils.Lists.toMap(roleTreeList,"id");
+    // Map<Long,List<ZTreeNode>> group = cn.ravanla.flash.utils.Lists.group(roleTreeList,"pId");
+    // for(Map.Entry<Long,List<ZTreeNode>> entry:group.entrySet()){
+    // if(entry.getValue().size()>1){
+    // roleTreeList.remove(map.get(entry.getKey()));
+    // }
+    // }
+    //
+    // List<Long> checkedIds = Lists.newArrayList();
+    // for (ZTreeNode zTreeNode : roleTreeList) {
+    // if (zTreeNode.getChecked() != null && zTreeNode.getChecked()
+    // &&zTreeNode.getpId().intValue()!=0) {
+    // checkedIds.add(zTreeNode.getId());
+    // }
+    // }
+    // return Rets.success(Maps.newHashMap("treeData", list, "checkedIds", checkedIds));
+    // }
+
+    // 根据角色ID获取菜单树
     public Object menuTreeListByRoleId(Integer roleId) {
-        List<Long> menuIds = menuService.getMenuIdsByRoleId(roleId);
+        // 根据角色ID获取菜单ID
+        List menuIds = menuService.getMenuIdsByRoleId(roleId);
+        // 菜单树
         List<ZTreeNode> roleTreeList = null;
+
+        // 若菜单ID为空，则获取所有菜单树
         if (ToolUtil.isEmpty(menuIds)) {
             roleTreeList = menuService.menuTreeList(null);
         } else {
             roleTreeList = menuService.menuTreeList(menuIds);
-
         }
-        List<Node> list = menuService.generateMenuTreeForRole(roleTreeList);
 
-        //element-ui中tree控件中如果选中父节点会默认选中所有子节点，所以这里将所有非叶子节点去掉
-        Map<Long,ZTreeNode> map = cn.ravanla.flash.utils.Lists.toMap(roleTreeList,"id");
-        Map<Long,List<ZTreeNode>> group = cn.ravanla.flash.utils.Lists.group(roleTreeList,"pId");
-        for(Map.Entry<Long,List<ZTreeNode>> entry:group.entrySet()){
-            if(entry.getValue().size()>1){
+        // 生成角色菜单树
+        List list = menuService.generateMenuTreeForRole(roleTreeList);
+
+        // element-ui中tree控件中如果选中父节点会默认选中所有子节点，所以这里将所有非叶子节点去掉
+        // 将菜单树按照父节点ID分组
+        Map<Long, ZTreeNode> map = cn.ravanla.flash.utils.Lists.toMap(roleTreeList, "id");
+        Map<Long, List<ZTreeNode>> group = cn.ravanla.flash.utils.Lists.group(roleTreeList, "pId");
+
+        // 遍历分组，若组中包含多个节点，则移除非叶子节点
+        for (Map.Entry<Long, List<ZTreeNode>> entry : group.entrySet()) {
+            if (entry.getValue().size() > 1) {
                 roleTreeList.remove(map.get(entry.getKey()));
             }
         }
 
-        List<Long> checkedIds = Lists.newArrayList();
+        // 选中节点ID
+        List checkedIds = Lists.newArrayList();
+        // 遍历菜单树，将选中节点ID添加至checkedIds
         for (ZTreeNode zTreeNode : roleTreeList) {
-            if (zTreeNode.getChecked() != null && zTreeNode.getChecked()
-            &&zTreeNode.getpId().intValue()!=0) {
+            if (zTreeNode.getChecked() != null && zTreeNode.getChecked() && zTreeNode.getpId().intValue() != 0) {
                 checkedIds.add(zTreeNode.getId());
             }
         }

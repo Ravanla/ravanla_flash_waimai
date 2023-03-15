@@ -30,20 +30,48 @@ public class OffcialSiteProductController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Object index() {
-        Map<String, Object> dataMap = Maps.newHashMap();
+//        Map<String, Object> dataMap = Maps.newHashMap();
+//
+//                BannerVo banner = bannerService.queryBanner(BannerTypeEnum.SOLUTION.getValue());
+//        dataMap.put("banner", banner);
+//
+//        List<Product> products = new ArrayList<>();
+//        Page<Article> articlePage = articleService.query(1, 10, ChannelEnum.PRODUCT.getId());
+//        for (Article article : articlePage.getRecords()) {
+//            products.add(new Product(article.getId(), article.getTitle(), article.getImg()));
+//        }
+//        dataMap.put("productList", products);
+//
+//        Map map =  Maps.newHashMap("data",dataMap);
+//        return Rets.success(map);
 
-                BannerVo banner = bannerService.queryBanner(BannerTypeEnum.SOLUTION.getValue());
+        // 创建一个dataMap用于存储数据
+        Map dataMap = Maps.newHashMap();
+
+        // 从BannerService中查询BannerVo对象
+        BannerVo banner = bannerService.queryBanner(BannerTypeEnum.SOLUTION.getValue());
+
+        // 将BannerVo对象添加到dataMap中
         dataMap.put("banner", banner);
 
+        // 创建一个Product集合用于存放Article
         List<Product> products = new ArrayList<>();
+
+        // 从ArticleService中查询出第1页，每页10条Article记录
+        // 遍历查询出来的Article
+        // 将Article转换为Product对象，并添加到products中
         Page<Article> articlePage = articleService.query(1, 10, ChannelEnum.PRODUCT.getId());
         for (Article article : articlePage.getRecords()) {
             products.add(new Product(article.getId(), article.getTitle(), article.getImg()));
         }
+
+        // 将products集合添加到dataMap中
         dataMap.put("productList", products);
 
-        Map map =  Maps.newHashMap("data",dataMap);
-        return Rets.success(map);
+        // 将dataMap添加到map中
+        Map map = Maps.newHashMap("data",dataMap);
 
+        // 返回结果
+        return Rets.success(map);
     }
 }

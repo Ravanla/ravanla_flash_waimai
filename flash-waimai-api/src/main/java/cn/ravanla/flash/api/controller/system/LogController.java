@@ -41,15 +41,31 @@ public class LogController extends BaseController {
                        @RequestParam(required = false) String endTime,
                        @RequestParam(required = false) String logName,
                        @RequestParam(required = false) Integer logType) {
-        Page<OperationLog> page = new PageFactory<OperationLog>().defaultPage();
+        // 创建一个page实例
+        Page page = new PageFactory().defaultPage();
+
+        // 添加创建时间大于等于beginTime过滤条件
         page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parseDate(beginTime));
+
+        // 添加创建时间小于等于endTime过滤条件
         page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parseDate(endTime));
+
+        // 添加logName模糊查询过滤条件
         page.addFilter( "logname", SearchFilter.Operator.LIKE, logName);
+
+        // 如果输入了logType，则添加logType查询过滤条件
         if (logType != null) {
+
             page.addFilter(SearchFilter.build("logtype", SearchFilter.Operator.EQ, BizLogType.valueOf(logType)));
         }
+
+        // 查询page
         page = operationLogService.queryPage(page);
-        page.setRecords((List<OperationLog>) new LogWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp());
+
+        // 将page的记录转换为map
+        page.setRecords((List) new LogWarpper(BeanUtil.objectsToMaps(page.getRecords())).warp());
+
+        // 返回结果
         return Rets.success(page);
     }
 

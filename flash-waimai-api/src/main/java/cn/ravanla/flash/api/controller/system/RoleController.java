@@ -45,14 +45,15 @@ public class RoleController extends BaseController {
     private RoleService roleService;
     @Autowired
     private UserService userService;
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.ROLE})
-    public Object list(String name){
-        logger.info("========="+ Json.toJson(roleService.get(3L)));
+    public Object list(String name) {
+        logger.info("=========" + Json.toJson(roleService.get(3L)));
         List roles = null;
-        if(Strings.isNullOrEmpty(name)) {
-            roles =  roleService.queryAll();
-        }else{
+        if (Strings.isNullOrEmpty(name)) {
+            roles = roleService.queryAll();
+        } else {
             roles = roleService.findByName(name);
         }
         return Rets.success(new RoleWarpper(BeanUtil.objectsToMaps(roles)).warp());
@@ -61,37 +62,47 @@ public class RoleController extends BaseController {
     @RequestMapping(method = RequestMethod.POST)
     @BussinessLog(value = "编辑角色", key = "name", dict = RoleDict.class)
     @RequiresPermissions(value = {Permission.ROLE_EDIT})
-    public Object save(@Valid Role role){
-        if(role.getId()==null){
+    public Object save(@Valid Role role) {
+        if (role.getId() == null) {
             roleService.insert(role);
-        }else {
+        } else {
             roleService.update(role);
         }
         return Rets.success();
     }
+
     @RequestMapping(method = RequestMethod.DELETE)
     @BussinessLog(value = "删除角色", key = "roleId", dict = RoleDict.class)
     @RequiresPermissions(value = {Permission.ROLE_DEL})
-    public Object remove(@RequestParam Long roleId){
-        logger.info("id:{}",roleId);
+    public Object remove(@RequestParam Long roleId) {
+
+        logger.info("id:{}", roleId);
+
+        // 检查角色ID是否为空
         if (ToolUtil.isEmpty(roleId)) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }
-        if(roleId.intValue()<2){
+
+        // 检查角色ID是否小于2
+        if (roleId.intValue() < 2) {
             return Rets.failure("不能删除初始角色");
         }
 
-        //不能删除超级管理员角色
-        if(roleId.equals(Const.ADMIN_ROLE_ID)){
+        // 不能删除超级管理员角色
+        if (roleId.equals(Const.ADMIN_ROLE_ID)) {
             throw new ApplicationException(BizExceptionEnum.CANT_DELETE_ADMIN);
         }
-        //缓存被删除的角色名称
+
+        // 缓存被删除的角色名称
         LogObjectHolder.me().set(ConstantFactory.me().getSingleRoleName(roleId));
+
+        // 根据角色ID删除角色
         roleService.delRoleById(roleId);
         return Rets.success();
     }
 
-    @RequestMapping(value = "/savePermisson",method = RequestMethod.POST)
+    // 配置角色权限的功能
+    @RequestMapping(value = "/savePermisson", method = RequestMethod.POST)
     @BussinessLog(value = "配置角色权限", key = "roleId", dict = RoleDict.class)
     @RequiresPermissions(value = {Permission.ROLE_EDIT})
     public Object setAuthority(Long roleId, String
@@ -99,6 +110,8 @@ public class RoleController extends BaseController {
         if (ToolUtil.isOneEmpty(roleId)) {
             throw new ApplicationException(BizExceptionEnum.REQUEST_NULL);
         }
+
+        // 调用roleService.setAuthority()来设置权限，如果参数为空，则抛出异常，否则返回成功结果。
         roleService.setAuthority(roleId, permissions);
         return Rets.success();
     }
@@ -107,21 +120,46 @@ public class RoleController extends BaseController {
     /**
      * 获取角色树
      */
+
+//    @RequestMapping(value = "/roleTreeListByIdUser", method = RequestMethod.GET)
+//    @RequiresPermissions(value = {Permission.ROLE})
+//    public Object roleTreeListByIdUser(Long idUser) {
+//        User user = userService.get(idUser);
+//        String roleIds = user.getRoleid();
+//        List<ZTreeNode> roleTreeList = null;
+//        if (ToolUtil.isEmpty(roleIds)) {
+//            roleTreeList = roleService.roleTreeList();
+//        } else {
+//            Long[] roleArray = Convert.toLongArray(",", roleIds);
+//            roleTreeList = roleService.roleTreeListByRoleId(roleArray);
+//
+//        }
+//        List<Node> list = roleService.generateRoleTree(roleTreeList);
+//        List<Long> checkedIds = Lists.newArrayList();
+//        for (ZTreeNode zTreeNode : roleTreeList) {
+//            if (zTreeNode.getChecked() != null && zTreeNode.getChecked()) {
+//                checkedIds.add(zTreeNode.getId());
+//            }
+//        }
+//        return Rets.success(Maps.newHashMap("treeData", list, "checkedIds", checkedIds));
+//    }
+
+    //    这段代码的作用是通过指定的用户id获取角色树，并将用户拥有的角色设置为选中状态。
+//    注释：// 通过用户id获取角色树，并将用户拥有的角色设置为选中状态
     @RequestMapping(value = "/roleTreeListByIdUser", method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.ROLE})
-    public Object roleTreeListByIdUser(Long idUser) {
-        User user = userService.get(idUser);
-        String roleIds = user.getRoleid();
-        List<ZTreeNode> roleTreeList = null;
-        if (ToolUtil.isEmpty(roleIds)) {
+    public Object roleTreeListByIdUser(Long idUser) { // 通过id获取用户信息
+        User user = userService.get(idUser); // 获取用户拥有的角色id
+        String roleIds = user.getRoleid(); // 定义角色树list
+        List<ZTreeNode> roleTreeList = null; // 判断角色id是否为空
+        if (ToolUtil.isEmpty(roleIds)) { // 若为空，获取全部角色树
             roleTreeList = roleService.roleTreeList();
-        } else {
+        } else { // 若不为空，根据角色id获取角色树
             Long[] roleArray = Convert.toLongArray(",", roleIds);
             roleTreeList = roleService.roleTreeListByRoleId(roleArray);
-
-        }
-        List<Node> list = roleService.generateRoleTree(roleTreeList);
-        List<Long> checkedIds = Lists.newArrayList();
+        } // 生成角色树
+        List list = roleService.generateRoleTree(roleTreeList); // 存储已选中的角色id
+        List checkedIds = Lists.newArrayList(); // 将用户拥有的角色设置为选中
         for (ZTreeNode zTreeNode : roleTreeList) {
             if (zTreeNode.getChecked() != null && zTreeNode.getChecked()) {
                 checkedIds.add(zTreeNode.getId());

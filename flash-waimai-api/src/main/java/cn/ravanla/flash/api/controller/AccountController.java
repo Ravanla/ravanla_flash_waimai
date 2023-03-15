@@ -81,7 +81,9 @@ public class AccountController extends BaseController{
                 token = JwtUtil.sign(user);
             } else if (Constants.USER_TYPE_SHOP.equals(userType)) {
 
+                // 通过MongoRepository查询相应的Shop实例，查询条件为name为userName，password为password
                 Shop shop = mongoRepository.findOne(Shop.class, Maps.newHashMap("name", userName, "password", password));
+                // Shop shop = mongoRepository.findOne(Shop.class, Maps.newHashMap("name", userName, "password", password));
                 if(shop==null){
                     return Rets.failure("没有改账号");
                 }
@@ -122,34 +124,38 @@ public class AccountController extends BaseController{
     public Object info(HttpServletRequest request) {
         AccountInfo accountInfo = JwtUtil.getAccountInfo();
         Long idUser = accountInfo.getUserId();
-        if (idUser != null) {
-            ShiroUser shiroUser = null;
-            Map profile = null;
-            if (Constants.USER_TYPE_MGR.equals(accountInfo.getUserType())) {
-                User user = userService.get(idUser);
-                if (StringUtils.isEmpty(user.getRoleid())) {
-                    return Rets.failure("该用户未配置权限");
-                }
-                shiroUser = ShiroFactroy.me().shiroUser(user);
-                profile = (Map) Mapl.toMaplist(user);
-            } else {
-                Shop shop = mongoRepository.findOne(Shop.class, Maps.newHashMap("name", accountInfo.getUsername(), "password", accountInfo.getPassword()));
-                shiroUser = ShiroFactroy.me().shiroUser(shop);
-                profile = (Map) Mapl.toMaplist(shop);
+        if (idUser != null) { // 如果idUser有值
+            ShiroUser shiroUser = null; // 定义一个ShiroUser变量
+            Map profile = null; // 定义Map变量
 
+            // 如果accountInfo的userType属性等于USERTYPEMGR
+            if (Constants.USER_TYPE_MGR.equals(accountInfo.getUserType())) {
+                User user = userService.get(idUser); // 从userService中获取idUser的值
+
+                if (StringUtils.isEmpty(user.getRoleid())) { // 如果user的roleId属性为空
+                    return Rets.failure("该用户未配置权限"); // 返回错误信息
+                }
+
+                shiroUser = ShiroFactroy.me().shiroUser(user); // 将user的信息转换为shiroUser
+                profile = (Map) Mapl.toMaplist(user); // 将user转换为Map
+            } else {
+
+                // 从mongoRepository中获取name和password属性对应的Shop对象
+                Shop shop = mongoRepository.findOne(Shop.class, Maps.newHashMap("name", accountInfo.getUsername(), "password", accountInfo.getPassword()));
+                shiroUser = ShiroFactroy.me().shiroUser(shop); // 将shop的信息转换为shiroUser
+                profile = (Map) Mapl.toMaplist(shop); // 将shop转换为Map
             }
 
+            // 将name,role,roles属性转换为Map
             Map map = Maps.newHashMap("name", accountInfo.getUsername(), "role", "admin", "roles", shiroUser.getRoleCodes());
+            List menus = menuService.getMenusByRoleIds(shiroUser.getRoleList()); // 从menuService中获取shiroUser的roleList
 
-            List menus = menuService.getMenusByRoleIds(shiroUser.getRoleList());
-            map.put("menus", menus);
-            map.put("permissions", shiroUser.getUrls());
-
-            profile.put("dept", shiroUser.getDeptName());
-            profile.put("roles", shiroUser.getRoleNames());
-            map.put("profile", profile);
-
-            return Rets.success(map);
+            map.put("menus", menus); // 将menus放入map中
+            map.put("permissions", shiroUser.getUrls()); // 将permissions放入map中
+            profile.put("dept", shiroUser.getDeptName()); // 将dept放入profile中
+            profile.put("roles", shiroUser.getRoleNames()); // 将roles放入profile中
+            map.put("profile", profile); // 将profile放入map中
+            return Rets.success(map); // 返回map
         }
         return Rets.failure("获取用户信息失败");
     }
@@ -161,30 +167,58 @@ public class AccountController extends BaseController{
                 return Rets.failure("新密码前后不一致");
             }
             AccountInfo accountInfo = JwtUtil.getAccountInfo();
-            if(Constants.USER_TYPE_MGR.equals(accountInfo.getUserType())) {
+//            if(Constants.USER_TYPE_MGR.equals(accountInfo.getUserType())) {
+//                User user = userService.get(getIdUser(HttpKit.getRequest()));
+//                if (ApiConstants.ADMIN_ACCOUNT.equals(user.getAccount())) {
+//                    return Rets.failure("不能修改超级管理员密码");
+//                }
+//                logger.info("oldPassword:{},password:{},rePassword:{}", MD5.md5(oldPassword, user.getSalt()), password, rePassword);
+//
+//                if (!MD5.md5(oldPassword, user.getSalt()).equals(user.getPassword())) {
+//                    return Rets.failure("旧密码输入错误");
+//                }
+//
+//                user.setPassword(MD5.md5(password, user.getSalt()));
+//                userService.update(user);
+            // 检查用户类型是否为管理员
+            if(Constants.USER_TYPE_MGR.equals(accountInfo.getUserType())) { // 检查用户是否为普通用户
+                // 获取当前用户
                 User user = userService.get(getIdUser(HttpKit.getRequest()));
+                // 检查是否为超级管理员
                 if (ApiConstants.ADMIN_ACCOUNT.equals(user.getAccount())) {
                     return Rets.failure("不能修改超级管理员密码");
                 }
+                // 输出日志
                 logger.info("oldPassword:{},password:{},rePassword:{}", MD5.md5(oldPassword, user.getSalt()), password, rePassword);
-
+                // 检查旧密码是否正确
                 if (!MD5.md5(oldPassword, user.getSalt()).equals(user.getPassword())) {
                     return Rets.failure("旧密码输入错误");
                 }
-
+                // 更新密码
                 user.setPassword(MD5.md5(password, user.getSalt()));
                 userService.update(user);
-            }else if(Constants.USER_TYPE_SHOP.equals(accountInfo.getUserType())){
+            }else if(Constants.USER_TYPE_MGR.equals(accountInfo.getUserType())){ // 检查用户是否为商家
+            // 此代码段检测用户是否为商家，
+            // 如果是商家，就查询数据库是否有指定用户名和旧密码的商家信息，
+            // 如果有，则进行更新密码，否则返回报错信息。
+
+
+                // 查询指定用户名和旧密码的商家信息
                 Shop shop = mongoRepository.findOne(Shop.class, Maps.newHashMap("name", accountInfo.getUsername(), "password", oldPassword));
+
+                // 如果查询不到，则返回报错
                 if(shop==null){
                     return Rets.failure("旧密码输入错误");
                 }
+                // 检查用户id是否匹配
                 if(shop.getId()!=accountInfo.getUserId()){
-                    //基本不会出现这种情况
+                    // 基本不会出现这种情况
                     return Rets.failure("不允许该操作");
                 }
+                // 执行更新密码操作
                 mongoRepository.update(accountInfo.getUserId(),"shops",Maps.newHashMap("password",password));
             }
+            // 操作成功
             return Rets.success();
         } catch (Exception e) {
             logger.error(e.getMessage(), e);

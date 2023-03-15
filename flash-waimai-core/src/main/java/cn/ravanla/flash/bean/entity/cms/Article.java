@@ -16,17 +16,29 @@ import javax.validation.constraints.NotNull;
 @Data
 @EntityListeners(AuditingEntityListener.class)
 public class Article extends BaseEntity {
+
+    // 定义了一个BIGINT类型的栏目id列，并且有一个注释来说明它的用途。
+
+    // 定义实体类的成员变量：栏目id
     @Column(columnDefinition = "BIGINT COMMENT '栏目id'")
     @NotNull(message = "栏目不能为空")
     private Long idChannel;
+
+    // 定义实体类的成员变量：标题
     @Column(columnDefinition = "VARCHAR(128) COMMENT '标题'")
     @NotBlank(message = "标题不能为空")
     private String title;
+
+    // 定义实体类的成员变量：内容
     @Column(columnDefinition = "TEXT COMMENT '内容'")
     @NotBlank(message = "内容不能为空")
     private String content;
+
+    // 定义实体类的成员变量：作者
     @Column(columnDefinition = "VARCHAR(64) COMMENT '作者'")
     private String author;
+
+    // 定义实体类的成员变量：文章题图ID
     @Column(columnDefinition = "VARCHAR(64) COMMENT '文章题图ID'")
     private String img;
 }

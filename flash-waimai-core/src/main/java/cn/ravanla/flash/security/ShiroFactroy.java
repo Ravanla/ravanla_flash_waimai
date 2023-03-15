@@ -32,7 +32,7 @@ import java.util.Set;
 @Service
 @DependsOn("springContextHolder")
 @Transactional(readOnly = true)
-public class ShiroFactroy     {
+public class ShiroFactroy {
 
     @Autowired
     private UserRepository userRepository;
@@ -47,7 +47,6 @@ public class ShiroFactroy     {
     public static ShiroFactroy me() {
         return SpringContextHolder.getBean(ShiroFactroy.class);
     }
-
 
     public User user(String account) {
 
@@ -64,19 +63,26 @@ public class ShiroFactroy     {
         return user;
     }
 
-
+    /*
+    * 根据用户token获取对应的ShiroUser信息。
+    * */
     public ShiroUser shiroUser(User user) {
         ShiroUser shiroUser = tokenCache.getUser(HttpKit.getToken());
-        if(shiroUser!=null){
+        // 如果ShiroUser信息已经缓存，则直接返回缓存的ShiroUser，
+        if (shiroUser != null) {
             return shiroUser;
         }
+
+        // 否则根据用户信息构建ShiroUser对象，并将其缓存到tokenCache中。
         shiroUser = new ShiroUser();
-        shiroUser.setId(Long.valueOf(user.getId()));            // 账号id
+        shiroUser.setId(Long.valueOf(user.getId())); // 账号id
         shiroUser.setAccount(user.getAccount());// 账号
-        shiroUser.setDeptId(user.getDeptid());    // 部门id
+        shiroUser.setDeptId(user.getDeptid()); // 部门id
         shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));// 部门名称
-        shiroUser.setName(user.getName());        // 用户名称
+        shiroUser.setName(user.getName()); // 用户名称
         shiroUser.setPassword(user.getPassword());
+
+
         Long[] roleArray = Convert.toLongArray(",", user.getRoleid());
         List<Long> roleList = new ArrayList<Long>();
         List<String> roleNameList = new ArrayList<String>();
@@ -97,23 +103,23 @@ public class ShiroFactroy     {
         shiroUser.setRoleCodes(roleCodeList);
         shiroUser.setPermissions(permissions);
         shiroUser.setUrls(resUrls);
-        tokenCache.setUser(HttpKit.getToken(),shiroUser);
+        tokenCache.setUser(HttpKit.getToken(), shiroUser);
         return shiroUser;
     }
 
     public ShiroUser shiroUser(Shop shop) {
         ShiroUser shiroUser = tokenCache.getUser(HttpKit.getToken());
-        if(shiroUser!=null){
+        if (shiroUser != null) {
             return shiroUser;
         }
         shiroUser = new ShiroUser();
-        shiroUser.setId(Long.valueOf(shop.getId()));            // 账号id
+        shiroUser.setId(Long.valueOf(shop.getId())); // 账号id
         shiroUser.setAccount(shop.getName());// 账号
-//        shiroUser.setDeptId(user.getDeptid());    // 部门id
-//        shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));// 部门名称
-        shiroUser.setName(shop.getName());        // 用户名称
+        // shiroUser.setDeptId(user.getDeptid()); // 部门id
+        // shiroUser.setDeptName(ConstantFactory.me().getDeptName(user.getDeptid()));// 部门名称
+        shiroUser.setName(shop.getName()); // 用户名称
         shiroUser.setPassword(shop.getPassword());
-        Long[] roleArray = new Long[]{Constants.ROLE_ID_SHOP};
+        Long[] roleArray = new Long[] {Constants.ROLE_ID_SHOP};
         List<Long> roleList = new ArrayList<Long>();
         List<String> roleNameList = new ArrayList<String>();
         List<String> roleCodeList = new ArrayList<String>();
@@ -133,7 +139,7 @@ public class ShiroFactroy     {
         shiroUser.setRoleCodes(roleCodeList);
         shiroUser.setPermissions(permissions);
         shiroUser.setUrls(resUrls);
-        tokenCache.setUser(HttpKit.getToken(),shiroUser);
+        tokenCache.setUser(HttpKit.getToken(), shiroUser);
         return shiroUser;
     }
 

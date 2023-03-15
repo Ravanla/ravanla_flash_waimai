@@ -33,21 +33,17 @@ public abstract class AbstractDictMap {
      * @author stylefeng
      * @Date 2021/5/9 19:35
      */
-    protected abstract void initBeWrapped();
-
-    public String get(String key) {
+    protected abstract void initBeWrapped(); // 定义一个抽象方法，用于初始化包装器
+    public String get(String key) { // 获取指定键的字符串值
         return this.dictory.get(key);
     }
-
-    public void put(String key, String value) {
+    public void put(String key, String value) { // 将指定的键值对放入字典
         this.dictory.put(key, value);
     }
-
-    public String getFieldWarpperMethodName(String key){
+    public String getFieldWarpperMethodName(String key){ // 获取指定字段的包装器方法名
         return this.fieldWarpperDictory.get(key);
     }
-
-    public void putFieldWrapperMethodName(String key,String methodName){
+    public void putFieldWrapperMethodName(String key,String methodName){ // 将指定的字段和包装器方法名放入字典
         this.fieldWarpperDictory.put(key,methodName);
     }
 }

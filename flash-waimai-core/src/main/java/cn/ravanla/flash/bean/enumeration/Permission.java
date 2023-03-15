@@ -58,5 +58,50 @@ public interface Permission {
     String FILE = "file";
     String FILE_UPLOAD = "file.upload";
 
-
+/*
+* CFG_EDIT：编辑系统参数的权限码
+* CFG_DEL：删除系统参数的权限码
+* DICT：数据字典管理
+* DICT_EDIT：编辑数据字典的权限码
+* LOG：系统日志管理
+* LOG_CLEAR：清空系统日志的权限码
+* LOGIN_LOG：登录日志管理
+* LOGIN_LOG_CLEAR：清空登录日志的权限码
+* ROLE：角色管理
+* ROLE_EDIT：编辑角色的权限码
+* ROLE_DEL：删除角色的权限码
+* TASK：定时任务管理
+* TASK_EDIT：编辑定时任务的权限码
+* TASK_DEL：删除定时任务的权限码
+* MENU：菜单管理
+* MENU_EDIT：编辑菜单的权限码
+* MENU_DEL：删除菜单的权限码
+* USER：用户管理
+* USER_EDIT：编辑用户的权限码
+* USER_DEL：删除用户的权限码
+* DEPT：部门管理
+* DEPT_EDIT：编辑部门的权限码
+* DEPT_DEL：删除部门的权限码
+* MSG：消息管理
+* MSG_CLEAR：清空消息的权限码
+* MSG_SENDER：消息发送人管理
+* MSG_SENDER_EDIT：编辑消息发送人的权限码
+* MSG_SENDER_DEL：删除消息发送人的权限码
+* MSG_TPL：消息模板管理
+* MSG_TPL_EDIT：编辑消息模板的权限码
+* MSG_TPL_DEL：删除消息模板的权限码
+* ARTICLE：文章管理
+* ARTICLE_EDIT：编辑文章的权限码
+* ARTICLE_DEL：删除文章的权限码
+* BANNER：轮播图管理
+* BANNER_EDIT：编辑轮播图的权限码
+* BANNER_DEL：删除轮播图的权限码
+* CHANNEL：栏目管理
+* CHANNEL_EDIT：编辑栏目的权限码
+* CHANNEL_DEL：删除栏目的权限码
+* CONTACTS：通讯录管理
+* FILE：文件管理
+* FILE_UPLOAD：上传文件的权限码
+*
+* */
 }

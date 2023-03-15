@@ -12,9 +12,9 @@ import java.util.Map;
 public class TimeCacheMap<K, V> {
     private static final int DEFAULT_NUM_BUCKETS = 3;
 
-
     /**
      * 回调函数实现这个接口就可以，至少可以把删掉的元素传回去
+     * 
      * @param <K>
      * @param <V>
      */
@@ -35,12 +35,11 @@ public class TimeCacheMap<K, V> {
         if (numBuckets < 2) {
             throw new IllegalArgumentException("numBuckets must be >= 2");
         }
-        //构造函数中，按照桶的数量，初始桶
+        // 构造函数中，按照桶的数量，初始桶
         buckets = new LinkedList<HashMap<K, V>>();
         for (int i = 0; i < numBuckets; i++) {
             buckets.add(new HashMap<K, V>());
         }
-
 
         this.callback = callback;
         final long expirationMillis = expirationSecs * 1000L;
@@ -55,9 +54,9 @@ public class TimeCacheMap<K, V> {
                     } catch (InterruptedException e) {
 
                     }
-//                        Time.sleep(sleepTime);
+                    // Time.sleep(sleepTime);
                     synchronized (lock) {
-                        //删掉最后一个桶，在头补充一个新的桶，最后一个桶的数据是最旧的
+                        // 删掉最后一个桶，在头补充一个新的桶，最后一个桶的数据是最旧的
                         dead = buckets.removeLast();
                         buckets.addFirst(Maps.newHashMap());
                     }
@@ -69,7 +68,7 @@ public class TimeCacheMap<K, V> {
                 }
             }
         });
-        //作为守护线程运行，一旦主线程不在，这个线程自动结束
+        // 作为守护线程运行，一旦主线程不在，这个线程自动结束
         cleaner.setDaemon(true);
         cleaner.start();
     }
@@ -85,7 +84,6 @@ public class TimeCacheMap<K, V> {
     public TimeCacheMap(int expirationSecs, int numBuckets) {
         this(expirationSecs, numBuckets, null);
     }
-
 
     public boolean containsKey(K key) {
         if (buckets.getFirst().containsKey(key)) {
@@ -113,8 +111,7 @@ public class TimeCacheMap<K, V> {
     }
 
     /**
-     * 中断清理线程中的sleep，_cleaner线程会抛出异常，然后_cleaner线程就死了，不再清理过期数据了
-     * 调用了interrupt后，再跑sleep就会抛InterruptedException异常
+     * 中断清理线程中的sleep，_cleaner线程会抛出异常，然后_cleaner线程就死了，不再清理过期数据了 调用了interrupt后，再跑sleep就会抛InterruptedException异常
      */
     public void neverCleanup() {
         cleaner.interrupt();

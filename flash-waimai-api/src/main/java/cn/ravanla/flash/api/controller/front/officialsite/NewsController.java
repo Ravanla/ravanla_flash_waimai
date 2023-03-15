@@ -30,13 +30,18 @@ public class NewsController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Object list() {
+        // 创建一个Map对象，用于存放数据
+        // 获取BannerVo对象，并将其放入Map中
         Map<String, Object> dataMap = new HashMap<>(10);
         BannerVo banner = bannerService.queryBanner(BannerTypeEnum.NEWS.getValue());
         dataMap.put("banner", banner);
 
+        // 创建一个News类型的列表，用于存放文章信息
+        // 获取文章列表
         List<News> newsList = new ArrayList<>();
         Page<Article> articlePage = articleService.query(1, 10, ChannelEnum.NEWS.getId());
 
+        // 遍历文章列表，将每个文章的标题、url和图片放入News对象中，并放入List列表中
         for (Article article : articlePage.getRecords()) {
             News news = new News();
             news.setDesc(article.getTitle());
@@ -44,13 +49,12 @@ public class NewsController extends BaseController {
             news.setSrc("static/images/icon/user.png");
             newsList.add(news);
         }
-
         dataMap.put("list", newsList);
 
+        // 创建一个Map对象，用于存放返回的数据
         Map map = new HashMap(2);
 
         map.put("data", dataMap);
         return Rets.success(map);
-
     }
 }

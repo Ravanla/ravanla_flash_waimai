@@ -36,12 +36,19 @@ public class LoginLogController extends BaseController {
     public Object list(@RequestParam(required = false) String beginTime,
                        @RequestParam(required = false) String endTime,
                        @RequestParam(required = false) String logName) {
-        Page<LoginLog> page = new PageFactory<LoginLog>().defaultPage();
+        // 实例化Page对象，参数为LoginLog类
+        Page page = new PageFactory().defaultPage();
+        // 添加createTime过滤，过滤条件为大于等于beginTime给定的日期
         page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parseDate(beginTime));
+        // 添加createTime过滤，过滤条件为小于等于endTime给定的日期
         page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parseDate(endTime));
-        page.addFilter( "logname", SearchFilter.Operator.LIKE, logName);
+        // 添加logname过滤，过滤条件为logName字段模糊匹配
+        page.addFilter("logname", SearchFilter.Operator.LIKE, logName);
+        // 执行查询，结果赋值给pageResult
         Page pageResult = loginlogService.queryPage(page);
-        pageResult.setRecords((List<LoginLog>) new LogWarpper(BeanUtil.objectsToMaps(pageResult.getRecords())).warp());
+        // 将查询结果转换为Map集合，并封装成LogWarpper对象
+        pageResult.setRecords((List) new LogWarpper(BeanUtil.objectsToMaps(pageResult.getRecords())).warp());
+        // 返回查询结果
         return Rets.success(pageResult);
 
     }

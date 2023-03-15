@@ -6,8 +6,9 @@ public class CodeConfig {
     private String serviceModel = "flash-waimai-core";
     private String controllerModel = "flash-waimai-api";
     private String viewModel = "flash-waimai-manage";
-    public String getModel(String type){
-        switch (type){
+
+    public String getModel(String type) {
+        switch (type) {
             case "model":
                 return entityModel;
             case "repository":
@@ -21,6 +22,7 @@ public class CodeConfig {
         }
         return null;
     }
+
     public String getEntityModel() {
         return entityModel;
     }

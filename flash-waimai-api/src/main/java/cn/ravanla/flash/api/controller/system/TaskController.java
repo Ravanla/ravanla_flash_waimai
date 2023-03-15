@@ -71,7 +71,6 @@ public class TaskController extends BaseController {
      * 删除定时任务管理
      */
     @RequestMapping(method = RequestMethod.DELETE)
-
     @BussinessLog(value = "删除定时任务", key = "taskId",dict = TaskDict.class)
     @RequiresPermissions(value = {Permission.TASK_DEL})
     public Object delete(@RequestParam Long id) {
@@ -80,13 +79,13 @@ public class TaskController extends BaseController {
     }
 
     @RequestMapping(value = "/disable",method = RequestMethod.POST)
-
     @BussinessLog(value = "禁用定时任务", key = "taskId",dict = TaskDict.class)
     @RequiresPermissions(value = {Permission.TASK_EDIT})
     public Object disable(@RequestParam Long taskId  ) {
         taskService.disable(taskId);
         return Rets.success();
     }
+
     @RequestMapping(value = "/enable",method = RequestMethod.POST)
     @BussinessLog(value = "启用定时任务", key = "taskId",dict = TaskDict.class)
     @RequiresPermissions(value = {Permission.TASK_EDIT})

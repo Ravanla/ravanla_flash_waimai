@@ -54,10 +54,15 @@ public class BaseController {
      * @param request
      * @return
      */
+
+    // 第一个方法是通过HttpServletRequest参数获取token，
+    // 第一种情况适用于在 服务器端 处理请求时，从HttpServletRequest对象中获取用户令牌；
     public String getToken(HttpServletRequest request) {
         return request.getHeader(Constants.TOKEN_NAME);
     }
 
+    // 第二个方法是通过HttpKit的getRequest()方法获取token。
+    // 第二种情况适用于 客户端 发起请求时，从HttpKit工具类中获取用户令牌。
     public String getToken() {
         return HttpKit.getRequest().getHeader(Constants.TOKEN_NAME);
     }
@@ -92,33 +97,65 @@ public class BaseController {
      *
      * @return
      */
+//    public String getjsonReq() {
+//        try {
+//            BufferedReader br = new BufferedReader(new InputStreamReader(HttpKit.getRequest().getInputStream()));
+//            String line = null;
+//            StringBuilder sb = new StringBuilder();
+//            while ((line = br.readLine()) != null) {
+//                sb.append(line);
+//
+//            }
+//            br.close();
+//            if (sb.length() < 1) {
+//                return "";
+//            }
+//            String reqBody = URLDecoder.decode(sb.toString(), "UTF-8");
+//            reqBody = reqBody.substring(reqBody.indexOf("{"));
+//            return reqBody;
+//
+//        } catch (IOException e) {
+//
+//            logger.error("获取json参数错误！{}", e.getMessage());
+//
+//            return "";
+//
+//        }
+//
+//    }
+    // 此方法用于获取json格式的请求参数
     public String getjsonReq() {
-        try {
+        try{
+            // 创建缓冲字符输入流，用于读取请求参数
             BufferedReader br = new BufferedReader(new InputStreamReader(HttpKit.getRequest().getInputStream()));
             String line = null;
             StringBuilder sb = new StringBuilder();
+
+            // 循环读取
             while ((line = br.readLine()) != null) {
                 sb.append(line);
-
             }
             br.close();
+
+            // 如果没有参数，则返回空字符串
             if (sb.length() < 1) {
                 return "";
             }
+
+            // 解码参数
+            // 根据左花括号截取出json格式字符串
             String reqBody = URLDecoder.decode(sb.toString(), "UTF-8");
             reqBody = reqBody.substring(reqBody.indexOf("{"));
             return reqBody;
-
         } catch (IOException e) {
 
             logger.error("获取json参数错误！{}", e.getMessage());
 
             return "";
-
         }
-
     }
 
+    // 从json中获取对应的实例
     public <T> T getFromJson(Class<T> klass) {
         String jsonStr = getjsonReq();
         if (StringUtils.isEmpty(jsonStr)) {
@@ -127,19 +164,32 @@ public class BaseController {
         JSONObject json = JSONObject.parseObject(jsonStr);
         return JSON.toJavaObject(json, klass);
     }
-    protected  String getRequestPayload( ){
+
+    // 获取请求中的负载
+    protected String getRequestPayload(){
+        // 创建一个StringBuilder对象
+        // 从请求中获取BufferedReader对象
         StringBuilder sb = new StringBuilder();
         try (BufferedReader reader = getRequest().getReader();) {
+
+            // 创建一个字符数组
             char[] buff = new char[1024];
             int len;
+
+            // 循环读取
             while ((len = reader.read(buff)) != -1) {
+                // 将读取到的字节添加到StringBuilder对象中
                 sb.append(buff, 0, len);
             }
         } catch (IOException e) {
+            // 捕获异常
             e.printStackTrace();
         }
+        // 返回StringBuilder对象的字符串
         return sb.toString();
     }
+
+    // 从负载中获取指定类型的实例
     protected  <T>T getRequestPayload(  Class<T> klass)     {
         String json = getRequestPayload();
         try {
@@ -155,18 +205,25 @@ public class BaseController {
         }
         return null;
     }
+
+    // 获取请求
     protected HttpServletRequest getRequest(){
         RequestAttributes ra = RequestContextHolder.getRequestAttributes();
         ServletRequestAttributes sra = (ServletRequestAttributes) ra;
         return sra.getRequest();
     }
+
+    // 获取Session
     protected Object getSession(String key){
         return getRequest().getSession().getAttribute(key);
     }
+
+    // 设置Session
     protected  void setSession(  String key,Object val){
         getRequest().getSession().setAttribute(key,val);
     }
 
+    // 获取ip
     public String getIp(){
         String ip = getRequest().getHeader("x-forwarded-for");
         if(Strings.isNullOrEmpty(ip)){

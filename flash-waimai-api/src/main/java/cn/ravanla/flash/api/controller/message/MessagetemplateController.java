@@ -29,9 +29,13 @@ public class MessagetemplateController {
     @RequestMapping(value = "/list", method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.MSG_TPL})
     public Object list() {
-        Page<MessageTemplate> page = new PageFactory<MessageTemplate>().defaultPage();
+        // 获取默认分页信息
+        Page page = new PageFactory().defaultPage();
+        // 根据分页信息查询消息模板
         page = messagetemplateService.queryPage(page);
+        // 获取查询结果
         page.setRecords(page.getRecords());
+        // 返回响应结果
         return Rets.success(page);
     }
 
@@ -39,12 +43,13 @@ public class MessagetemplateController {
     @BussinessLog(value = "编辑消息模板", key = "name", dict = CommonDict.class)
     @RequiresPermissions(value = {Permission.MSG_TPL_EDIT})
     public Object save(@ModelAttribute @Valid MessageTemplate tMessageTemplate) {
-        if(tMessageTemplate.getId()!=null)
-        {
+        // 检查tMessageTemplate的id是否为null，如果不为null，更新tMessageTemplate；如果为null，插入tMessageTemplate
+        if(tMessageTemplate.getId()!=null) {
             messagetemplateService.update(tMessageTemplate);
-        }else{
+        } else {
             messagetemplateService.insert(tMessageTemplate);
         }
+        // 返回操作成功
         return Rets.success();
     }
 
