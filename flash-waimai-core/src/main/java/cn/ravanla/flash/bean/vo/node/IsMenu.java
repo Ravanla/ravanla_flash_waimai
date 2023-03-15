@@ -4,7 +4,7 @@ package cn.ravanla.flash.bean.vo.node;
  * 是否是菜单的枚举
  *
  * @author fengshuonan
- * @date 2017年6月1日22:50:11
+ * @date 2021年6月1日22:50:11
  */
 public enum IsMenu {
 

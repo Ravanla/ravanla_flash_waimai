@@ -329,8 +329,8 @@ INSERT INTO `t_sys_task` (`id`, `name`, `job_group`, `job_class`, `note`, `cron`
 -- ----------------------------
 
 INSERT INTO `t_sys_user` VALUES ('-1', null, null, null, null, 'system', null, null, null, null, '应用系统', null, null, null, null, null, null, null);
-INSERT INTO `t_sys_user` VALUES ('1', null, '2020-01-29 08:49:53', '1', '2023-03-20 23:45:24', 'admin', null, '2017-05-05 00:00:00', '27', '1285644869@qq.com', '管理员', 'b5a51391f271f062867e5984e2fcffee', '13713842506', '1', '8pgby', '2', '1', '25');
-INSERT INTO `t_sys_user` VALUES ('2', null, '2021-09-13 17:21:02', '1', '2023-01-09 23:05:51', 'developer', null, '2017-12-31 00:00:00', '25', '1285644869@qq.com', '网站管理员', 'fac36d5616fe9ebd460691264b28ee27', '13713842506', '2,', 'vscp9', '1', '1', null);
+INSERT INTO `t_sys_user` VALUES ('1', null, '2020-01-29 08:49:53', '1', '2023-03-20 23:45:24', 'admin', null, '2021-05-05 00:00:00', '27', '1285644869@qq.com', '管理员', 'b5a51391f271f062867e5984e2fcffee', '13713842506', '1', '8pgby', '2', '1', '25');
+INSERT INTO `t_sys_user` VALUES ('2', null, '2021-09-13 17:21:02', '1', '2023-01-09 23:05:51', 'developer', null, '2021-12-31 00:00:00', '25', '1285644869@qq.com', '网站管理员', 'fac36d5616fe9ebd460691264b28ee27', '13713842506', '2,', 'vscp9', '1', '1', null);
 
 -- ----------------------------
 -- Records of t_test_boy

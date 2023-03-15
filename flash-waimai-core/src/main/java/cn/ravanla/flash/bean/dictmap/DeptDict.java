@@ -6,7 +6,7 @@ import cn.ravanla.flash.bean.dictmap.base.AbstractDictMap;
  * 部门的映射
  *
  * @author fengshuonan
- * @date 2017-05-06 15:01
+ * @date 2021-05-06 15:01
  */
 public class DeptDict extends AbstractDictMap {
 

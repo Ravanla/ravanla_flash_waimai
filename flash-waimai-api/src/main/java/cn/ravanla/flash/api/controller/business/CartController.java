@@ -23,6 +23,7 @@ import java.util.Map;
  *
  *@Author ravanla
  */
+// 购物车控制器，处理和购物车相关的请求
 @RestController
 public class CartController extends BaseController {
     @Autowired
@@ -33,6 +34,8 @@ public class CartController extends BaseController {
     private PositionService positionService;
 
     @RequestMapping(value = "/v1/carts/checkout", method = RequestMethod.POST)
+    // 这个方法接收一个HTTP请求对象，从中获取一些参数，
+    // 如geohash（地理编码），restaurant_id（餐厅编号），entities（商品列表）等。
     public Object checkout(HttpServletRequest request) {
 
         Map data = getRequestPayload(Map.class);
@@ -51,6 +54,7 @@ public class CartController extends BaseController {
         carts.setSig(String.valueOf(Math.ceil(Math.random() * 1000000)));
         carts.setInvoice(Maps.newHashMap("status_text", "不需要开发票", "is_available", true));
 
+        // 然后它创建一个Carts对象，用来存储购物车的信息，如支付方式，发票信息，配送时间等。
         Cart cart = new Cart();
         cart.setId(carts.getId());
         cart.setRestaurant_id(restaurantId);
@@ -103,6 +107,10 @@ public class CartController extends BaseController {
         cart.setGroups(groups);
         carts.setCart(cart);
 
+        // 调用了一些其他服务，
+        // 如mongoRepository（MongoDB数据库操作），
+        // idsService（ID生成服务），
+        // positionService（位置服务）等。
         //todo 暂时不保存,开发中
         mongoRepository.save(carts, "carts");
         return Rets.success(carts);

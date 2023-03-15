@@ -1,7 +1,7 @@
 package cn.ravanla.flash.bean.vo.business;
 
 /**
- * Created  on 2017/12/29 0029.
+ * Created  on 2021/12/29 0029.
  *
  *@Author ravanla
  */

@@ -4,7 +4,7 @@ package cn.ravanla.flash.bean.constant.state;
  * 日志类型
  *
  * @author fengshuonan
- * @Date 2017年1月22日 下午12:14:59
+ * @Date 2021年1月22日 下午12:14:59
  */
 public enum LogType {
 

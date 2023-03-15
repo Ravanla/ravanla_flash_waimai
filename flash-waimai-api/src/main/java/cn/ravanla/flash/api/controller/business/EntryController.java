@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.RestController;
  *
  *@Author ravanla
  */
+// 处理与入口相关的请求 处理与入口相关的请求
 @RestController
 public class EntryController extends BaseController {
     @Autowired

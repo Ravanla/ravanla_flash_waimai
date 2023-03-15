@@ -15,12 +15,15 @@ import org.springframework.web.bind.annotation.RestController;
  *
  *@Author ravanla
  */
+// 处理与配送相关的请求
 @RestController
 public class DeliveryController extends BaseController {
     @Autowired
     private MongoRepository mongoRepository;
 
+    // list: 返回Delivery对象
     @RequestMapping(value = "/shopping/v1/restaurants/delivery_modes",method = RequestMethod.GET)
+    // @RequestParam是Spring MVC的注解，用于将请求参数赋值给方法中的形参
     public Object list(@RequestParam(value = "latitude",required = false) String latitude,
                        @RequestParam(value = "longitude",required = false) String longitude){
         return Rets.success(mongoRepository.findAll(Delivery.class));

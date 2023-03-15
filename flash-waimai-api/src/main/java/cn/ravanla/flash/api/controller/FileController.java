@@ -127,25 +127,45 @@ public class FileController extends BaseController {
      * @param response
      * @param idFile
      */
+    /*
+OutputStream out = response.getOutputStream()：
+File file = new File(fileInfo.getAblatePath())：
+fis.read(b)：
+out.write(b)：将数据写入输出流
+fis.close()：关闭输入流
+*/
+    // @RequestMapping将HTTP请求映射到MVC和REST控制器的处理方法
+    // value="getImgStream"：定义访问路径
     @RequestMapping(value="getImgStream",method = RequestMethod.GET)
+
+    // @RequestParam注解用于从请求参数中获取参数值
     public void getImgStream(HttpServletResponse response,
                              @RequestParam(value = "idFile",required = false)Long idFile,
                              @RequestParam(value = "fileName",required = false)String fileName){
         FileInfo fileInfo = null;
+
         if(idFile!=null) {
             fileInfo = fileService.get(idFile);
         }else if(StringUtils.isNotEmpty(fileName)){
             fileInfo = fileService.getByName(fileName);
         }
 
+        // 文件输入流
         FileInputStream fis = null;
 
         try {
+            // 设置返回文件类型
             response.setContentType("image/"+fileInfo.getRealFileName().split("\\.")[1]);
+
+            // 获取响应输出流
             OutputStream out = response.getOutputStream();
+
+            // 根据文件路径获取文件
             File file = new File(fileInfo.getAblatePath());
             fis = new FileInputStream(file);
             byte[] b = new byte[fis.available()];
+
+            // 从输入流中读取数据
             fis.read(b);
             out.write(b);
             out.flush();

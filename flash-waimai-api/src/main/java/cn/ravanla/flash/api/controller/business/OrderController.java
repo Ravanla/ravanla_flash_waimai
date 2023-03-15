@@ -39,6 +39,7 @@ public class OrderController extends BaseController {
     @Autowired
     private IdsService idsService;
 
+    // 根据userId, limit和offset参数返回用户的订单分页列表
     @RequestMapping(value = "/bos/v2/users/{user_id}/orders", method = RequestMethod.GET)
     public Object orders(@PathVariable("user_id") Long userId, @RequestParam("limit") Integer limit,
                          @RequestParam("offset") Integer offset) {
@@ -49,6 +50,7 @@ public class OrderController extends BaseController {
 
     }
 
+    // 根据restaurantId参数返回订单的总数
     @RequestMapping(value = "/bos/orders/count", method = RequestMethod.GET)
     public Object count(@RequestParam("restaurant_id") String restaurantId) {
         long count = 0;
@@ -60,6 +62,7 @@ public class OrderController extends BaseController {
         return Rets.success("count", count);
     }
 
+    // 根据restaurantId和orderId参数返回订单的分页列表，根据用户类型过滤结果
     @RequestMapping(value = "/bos/orders", method = RequestMethod.GET)
     public Object list(@RequestParam(value = "restaurant_id", required = false) Long restaurantId,
                        @RequestParam(value = "id", required = false) Long orderId) {
@@ -80,6 +83,7 @@ public class OrderController extends BaseController {
         return Rets.success(page);
     }
 
+    // 根据orderId参数返回订单的详细信息，包括食物、地址和用户信息
     @RequestMapping(value = "/bos/getOrder", method = RequestMethod.GET)
     public Object getOrder(
             @RequestParam(value = "id", required = false) Long orderId) {
@@ -125,6 +129,7 @@ public class OrderController extends BaseController {
      * @param status
      * @return
      */
+    // 根据orderId和status参数更新订单的状态
     @RequestMapping(value = "/bos/updateOrderStatus", method = RequestMethod.POST)
     public Object updateOrderStatus(
             @RequestParam(value = "id", required = false) Long orderId,
@@ -146,6 +151,7 @@ public class OrderController extends BaseController {
      * @param orderId
      * @return
      */
+    // 用户确认完成订单，并将订单金额加入到商户未结算金额
     @RequestMapping(value = "/bos/v1/users/{user_id}/orders/{orderId}/finish", method = RequestMethod.GET)
     public Object finishorder(@PathVariable("user_id") Long userId,
                               @PathVariable("orderId") Long orderId) {
@@ -184,6 +190,7 @@ public class OrderController extends BaseController {
      * @param orderId
      * @return
      */
+    // 用户取消订单，并将订单设置为取消状态
     @RequestMapping(value = "/bos/v1/users/{user_id}/orders/{orderId}/cancel", method = RequestMethod.GET)
     public Object cancelOrder(@PathVariable("user_id") Long userId,
                               @PathVariable("orderId") Long orderId) {
@@ -203,6 +210,8 @@ public class OrderController extends BaseController {
 
 
     }
+
+    // 保存用户从购物车提交的订单
     @PostMapping(value = "/v1/users/{userId}/carts/{cartId}/orders")
     public Object save(@PathVariable("userId") Long userId, @PathVariable("cartId") Long cartId) {
         OrderVo orderVo = getRequestPayload(OrderVo.class);

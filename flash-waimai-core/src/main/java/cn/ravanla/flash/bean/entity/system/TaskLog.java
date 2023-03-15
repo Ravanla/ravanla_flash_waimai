@@ -12,8 +12,8 @@ import java.util.Date;
 
 /**
  * <p>
- * User: Yao
- * Date: 2017-06-22 11:12:48
+ * User: ZYF
+ * Date: 2021-06-22 11:12:48
  */
 @Table(appliesTo="t_sys_task_log",comment = "定时任务日志")
 @Entity(name="t_sys_task_log")

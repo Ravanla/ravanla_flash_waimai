@@ -26,6 +26,7 @@ public class User  extends BaseEntity {
     private String account;
     @Column
     private String password;
+    // 盐值 用于用户加密的
     @Column
     private String salt;
     @Column

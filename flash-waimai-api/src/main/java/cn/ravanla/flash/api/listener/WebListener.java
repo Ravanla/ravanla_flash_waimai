@@ -12,6 +12,12 @@ import org.springframework.stereotype.Component;
  * @Author ravanla
  * @date ：Created in 2021/10/25 11:24
  */
+/*
+*
+* 用于初始化MongoDB数据库，根据@Value注解得到的init变量的值，如果init变量值为true，
+* 则执行清空Shop.class、Food.class、Menu.class、Address.class、Ratings.class、Order.class、Carts.class、sesions、users、userinfos
+* 等MongoDB表的操作。
+* */
 @Component
 public class WebListener implements CommandLineRunner {
     @Autowired

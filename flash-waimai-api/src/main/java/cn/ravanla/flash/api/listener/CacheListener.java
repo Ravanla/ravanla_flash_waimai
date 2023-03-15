@@ -15,6 +15,7 @@ import org.springframework.stereotype.Component;
  *
  * @author  ravanla
  */
+
 @Component
 public class CacheListener implements CommandLineRunner {
 

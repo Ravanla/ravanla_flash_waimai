@@ -22,6 +22,8 @@ import java.util.Map;
 
 @RestController
 @RequestMapping("/offcialsite/solution")
+
+// 主要功能是获取网站“解决方案”页面的数据并返回给客户端。
 public class SolutionController extends BaseController {
     @Autowired
     private BannerService bannerService;
@@ -30,11 +32,16 @@ public class SolutionController extends BaseController {
 
     @RequestMapping(method = RequestMethod.GET)
     public Object index() {
+        // 创建了一个空的Map对象dataMap，用于保存返回给客户端的数据。
         Map<String, Object> dataMap =  Maps.newHashMap();
 
+        // 使用bannerService.queryBanner()方法查询“解决方案”页面对应的Banner，
+        // 并将Banner对象保存在dataMap中。
         BannerVo banner = bannerService.queryBanner(BannerTypeEnum.SOLUTION.getValue());
         dataMap.put("banner", banner);
 
+        // 使用articleService.query()方法查询“解决方案”页面对应的文章，
+        // 并将文章对象转换为Solution对象，保存在solutions列表中。
         List<Solution> solutions = new ArrayList<>();
         Page<Article> articlePage = articleService.query(1, 10, ChannelEnum.SOLUTION.getId());
         for (Article article : articlePage.getRecords()) {

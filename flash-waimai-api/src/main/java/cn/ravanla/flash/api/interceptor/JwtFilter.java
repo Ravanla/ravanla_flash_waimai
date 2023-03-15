@@ -36,13 +36,18 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
     /**
      *登录验证
      */
+    // 重写executeLogin方法，实现自定义的登入
     @Override
     protected boolean executeLogin(ServletRequest request, ServletResponse response) throws Exception {
+
+        // 将ServletRequest转换为HttpServletRequest
+        // 从请求头中获取token
         HttpServletRequest httpServletRequest = (HttpServletRequest) request;
         String authorization = httpServletRequest.getHeader(Constants.TOKEN_NAME);
 
-        JwtToken token = new JwtToken(authorization);
+        // 将token封装成JwtToken
         // 提交给realm进行登入，如果错误他会抛出异常并被捕获
+        JwtToken token = new JwtToken(authorization);
         getSubject(request, response).login(token);
         // 如果没有抛出异常则代表登入成功，返回true
         return true;
@@ -55,7 +60,7 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
      * 如果在这里返回了false，请求会被直接拦截，用户看不到任何东西
      * 所以我们在这里返回true，Controller中可以通过 subject.isAuthenticated() 来判断用户是否登入
      * 如果有些资源只有登入用户才能访问，我们只需要在方法上面加上 @RequiresAuthentication 注解即可
-     * 但是这样做有一个缺点，就是不能够对GET,POST等请求进行分别过滤鉴权(因为我们重写了官方的方法)，但实际上对应用影响不大
+     * 但是这样做有一个缺点，就是不能够对GET,POST等请求进行分别过滤鉴权(因为重写了官方的方法)，但实际上对应用影响不大
      */
     @Override
     protected boolean isAccessAllowed(ServletRequest request, ServletResponse response, Object mappedValue) {
@@ -72,6 +77,10 @@ public class JwtFilter extends BasicHttpAuthenticationFilter {
 
     /**
      * 对跨域提供支持
+     * 在每次跨域请求时，会先发送一个option请求，
+     * 本段代码就是用来处理这个option请求，并且设置response的头部信息，从而实现跨域请求。
+     * 跨域请求有助于在多个域之间共享数据和资源，从而提高网站的效率和可用性。
+     * 例如，它可用于允许跨域Ajax调用，访问其他域上的Web服务和共享应用程序的外部资源，以及更安全地使用JSONP（JSON with Padding）。
      */
     @Override
     protected boolean preHandle(ServletRequest request, ServletResponse response) throws Exception {

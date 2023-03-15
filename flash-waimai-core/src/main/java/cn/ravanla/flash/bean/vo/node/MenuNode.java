@@ -289,7 +289,7 @@ public class MenuNode implements Comparable {
     /**
      * 清除掉按钮级别的资源
      *
-     * @date 2017年2月19日 下午11:04:11
+     * @date 2021年2月19日 下午11:04:11
      */
     public static List<MenuNode> clearBtn(List<MenuNode> nodes) {
         ArrayList<MenuNode> noBtns = new ArrayList<MenuNode>();
@@ -304,7 +304,7 @@ public class MenuNode implements Comparable {
     /**
      * 清除所有二级菜单
      *
-     * @date 2017年2月19日 下午11:18:19
+     * @date 2021年2月19日 下午11:18:19
      */
     public static List<MenuNode> clearLevelTwo(List<MenuNode> nodes) {
         ArrayList<MenuNode> results = new ArrayList<MenuNode>();
@@ -320,7 +320,7 @@ public class MenuNode implements Comparable {
     /**
      * 构建菜单列表
      *
-     * @date 2017年2月19日 下午11:18:19
+     * @date 2021年2月19日 下午11:18:19
      */
     public static List<MenuNode> buildTitle(List<MenuNode> nodes) {
 

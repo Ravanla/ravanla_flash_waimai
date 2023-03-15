@@ -8,7 +8,7 @@ import java.util.concurrent.TimeUnit;
  * 日志管理器
  *
  * @author fengshuonan
- * @date 2017-03-30 16:29
+ * @date 2021-03-30 16:29
  */
 public class LogManager {
 
