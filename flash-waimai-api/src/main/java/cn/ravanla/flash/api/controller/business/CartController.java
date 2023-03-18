@@ -33,6 +33,35 @@ public class CartController extends BaseController {
     @Autowired
     private PositionService positionService;
 
+/*
+* 这段代码似乎是用Java编写的，看起来它是一个更大系统的一部分，该系统管理餐厅或送餐服务的购物车。
+
+
+
+* 代码首先获取一个请求有效负载，然后将其打印到控制台。
+* 然后，它从有效负载中提取一些信息，例如geohash和餐馆ID。
+* 接下来，它初始化Carts对象，并从MongoDB存储库中检索支付列表。
+* 它还根据餐厅ID从存储库中检索Shop对象。
+
+
+
+* 然后，代码调用positionService来获取餐厅和顾客之间的距离。
+* 如果成功，它将从响应中检索交付时间，并将其设置在Carts对象中。
+
+
+
+* 然后，代码初始化Cart对象，并用请求有效载荷中的信息填充它，例如餐厅ID、Cart中的食品和总价。
+* 它还计算任何额外的费用，如配送费或包装费，并将其添加到总额中。
+
+
+
+* 最后，代码将Carts对象保存到MongoDB存储库中，并使用Rets类将其作为响应返回。
+
+
+
+* 总的来说，这个代码似乎负责处理购物车请求并生成一个响应，其中包括配送时间、总价和食品清单等信息。它还与MongoDB存储库和其他服务交互，以检索和存储信息。
+* */
+
     @RequestMapping(value = "/v1/carts/checkout", method = RequestMethod.POST)
     // 这个方法接收一个HTTP请求对象，从中获取一些参数，
     // 如geohash（地理编码），restaurant_id（餐厅编号），entities（商品列表）等。

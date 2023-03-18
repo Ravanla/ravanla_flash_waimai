@@ -25,12 +25,12 @@ public class TencentSmsSender implements SmsSender {
         SmsSingleSenderResult result = null;
         try{
             if(StringUtils.isNotEmpty(tplCode)){
-                //根据指定模板id发送短信
+                // 根据指定模板id发送短信
                 // 签名参数未提供或者为空时，会使用默认签名发送短信
                 result = ssender.sendWithParam("86", receiver,
                     Integer.valueOf(tplCode), args, smsSign, "", "");
             }else {
-                //发送固定内容短信
+                // 发送固定内容短信
                 result = ssender.send(0, "86", receiver,
                         content, "", "");
 

@@ -24,7 +24,6 @@ import org.springframework.web.bind.annotation.RestController;
  */
 // 在这段代码中，我们定义了一个名为ArticleMgrController的RESTful API控制器，用于管理文章信息。它定义了以下四个请求处理方法：
 
-
 // 这些请求处理方法分别对应不同的HTTP请求类型（POST、DELETE、GET、GET），并且都使用@RequestMapping注解来指定请求的URL路径。
 // 同时，这些方法还使用了@BussinessLog、@RequiresPermissions等注解来增加业务日志记录和权限控制等功能，提高了系统的可用性和安全性。
 @RestController
@@ -33,33 +32,34 @@ public class ArticleMgrController extends BaseController {
 
     @Autowired
     private ArticleService articleService;
+
     @RequestMapping(method = RequestMethod.POST)
-    @BussinessLog(value = "编辑文章",key="name",dict = CommonDict.class)
+    @BussinessLog(value = "编辑文章", key = "name", dict = CommonDict.class)
     @RequiresPermissions(value = {Permission.ARTICLE_EDIT})
     // save()方法：用于保存或更新文章信息。根据传入的JSON数据，判断是新增还是修改文章信息，并将其持久化到数据库中。该方法需要进行身份验证和权限验证，只有具有文章编辑权限的用户才能够进行操作。
 
-    public Object save(){
+    public Object save() {
         Article article = getFromJson(Article.class);
-        if(article.getId() != null){
+        if (article.getId() != null) {
             Article old = articleService.get(article.getId());
             old.setAuthor(article.getAuthor());
             old.setContent(article.getContent());
             old.setIdChannel(article.getIdChannel());
             old.setImg(article.getImg());
             old.setTitle(article.getTitle());
-           articleService.update(old);
-        }else {
+            articleService.update(old);
+        } else {
             articleService.insert(article);
         }
         return Rets.success();
     }
 
     @RequestMapping(method = RequestMethod.DELETE)
-    @BussinessLog(value = "删除文章",key="id",dict = CommonDict.class)
+    @BussinessLog(value = "删除文章", key = "id", dict = CommonDict.class)
     @RequiresPermissions(value = {Permission.ARTICLE_DEL})
     // remove()方法：用于删除指定ID的文章信息。该方法需要进行身份验证和权限验证，只有具有文章删除权限的用户才能够进行操作。
 
-    public Object remove(Long id){
+    public Object remove(Long id) {
         articleService.delete(id);
         return Rets.success();
     }
@@ -73,7 +73,7 @@ public class ArticleMgrController extends BaseController {
         return Rets.success(article);
     }
 
-    @RequestMapping(value = "/list",method = RequestMethod.GET)
+    @RequestMapping(value = "/list", method = RequestMethod.GET)
     @RequiresPermissions(value = {Permission.ARTICLE})
     // list()方法：用于获取文章列表信息。
     // 可以根据文章标题、作者、发布时间等条件进行筛选和排序，并支持分页查询。
@@ -81,22 +81,38 @@ public class ArticleMgrController extends BaseController {
 
     // 这段代码定义了一个名为list的方法，使用了@RequestParam注解获取前端传来的参数，
     // 包括title、author、startDate和endDate，它们都是可选参数，即在请求时可以不传递。
-    public Object list(@RequestParam(required = false) String title,
-                       @RequestParam(required = false) String author,
-                       @RequestParam(required = false) String startDate,
-                       @RequestParam(required = false) String endDate
-                       ) {
+    public Object list(@RequestParam(required = false) String title, @RequestParam(required = false) String author,
+        @RequestParam(required = false) String startDate, @RequestParam(required = false) String endDate) {
         // 该方法创建了一个PageFactory对象，并调用defaultPage方法创建一个默认的Page对象。
         Page<Article> page = new PageFactory<Article>().defaultPage();
         // 接着，该方法通过调用Page对象的addFilter方法，将title、author、startDate和endDate这些参数作为过滤条件添加到Page对象中。
-        page.addFilter("title", SearchFilter.Operator.LIKE,title);
-        page.addFilter("author", SearchFilter.Operator.EQ,author);
-        page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parse(startDate,"yyyyMMddHHmmss"));
-        page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endDate,"yyyyMMddHHmmss"));
+        page.addFilter("title", SearchFilter.Operator.LIKE, title);
+        page.addFilter("author", SearchFilter.Operator.EQ, author);
+        page.addFilter("createTime", SearchFilter.Operator.GTE, DateUtil.parse(startDate, "yyyyMMddHHmmss"));
+        page.addFilter("createTime", SearchFilter.Operator.LTE, DateUtil.parse(endDate, "yyyyMMddHHmmss"));
         // 最后，该方法调用articleService对象的queryPage方法，将包含过滤条件的Page对象作为参数传递进去，从而获取查询结果。
         page = articleService.queryPage(page);
         // 最终，该方法将查询结果通过Rets.success方法返回给前端。
         return Rets.success(page);
-        //具体格式取决于代码实现中使用的序列化方式。如果使用了Spring Boot自带的Jackson序列化工具，那么返回的就是JSON格式的字符串。
+        // 具体格式取决于代码实现中使用的序列化方式。如果使用了Spring Boot自带的Jackson序列化工具，那么返回的就是JSON格式的字符串。
     }
 }
+
+/*
+* Based on the given requirements, you can design a CMS system with the following modules and functionalities:
+
+* Authentication and Authorization Module: This module will be responsible for managing the login and access control for the super administrator, merchant, and users. It will ensure that only authorized users can access the system and perform specific actions.
+*
+* Column Management Module: This module will allow the super administrator to manage the different sections or columns of the website. They can create new sections, edit or delete existing ones, and assign permissions to the merchant or users to manage the content in each section.
+*
+* Article Management Module: This module will allow the merchant to add, edit, and delete articles within the assigned sections. The super administrator can also view and manage all articles in the system. Users can only view articles based on their assigned permissions.
+*
+* Banner Management Module: This module will allow the merchant to upload and manage banners on the website. The super administrator can also view and manage all banners in the system. Users can only view banners based on their assigned permissions.
+*
+* Invitation Management Module: This module will allow the super administrator to manage the invitation codes for new users to join the system. They can generate new codes, edit or revoke existing ones, and assign permissions to the merchant or users to use the codes.
+*
+* File Management Module: This module will allow the merchant to upload and manage files related to articles or banners. The super administrator can also view and manage all files in the system. Users can only view files based on their assigned permissions.
+*
+* To implement this system, you can use Java and any relevant frameworks like Spring or Hibernate. You can use a database like MySQL to store the data and handle the relationships between different entities. You can also implement a RESTful API to provide the necessary functionalities to the frontend of the web app.
+* *
+* */

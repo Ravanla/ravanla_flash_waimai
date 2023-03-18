@@ -54,7 +54,10 @@ INSERT INTO `t_cms_contacts` VALUES ('1', null, '2019-07-31 17:44:27', null, '20
 -- Records of t_sys_cfg
 -- ----------------------------
 INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`, `cfg_value`) VALUES (1, NULL, NULL, -1, '2021-5-14 17:00:00', 'update by 2021-05-14 17:00:00', 'system.app.name', 'flash-waimai');
-INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`, `cfg_value`) VALUES (2, NULL, NULL, 1, '2019-4-15 21:36:17', '系统默认上传文件路径', 'system.file.upload.path', '/data/flash-waimai/runtime/upload');
+# INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`, `cfg_value`) VALUES (2, NULL, NULL, 1, '2019-4-15 21:36:17', '系统默认上传文件路径', 'system.file.upload.path', '/data/flash-waimai/runtime/upload');
+INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`,
+                         `cfg_value`) VALUES (2, NULL, NULL, 1, '2019-4-15 21:36:17', '系统默认上传文件路径', 'system.file
+.upload.path', 'D:\developer\flash-waimai\runtime\upload');
 INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`, `cfg_value`) VALUES (3, NULL, NULL, 1, '2019-4-15 21:36:17', '腾讯sms接口appid', 'api.tencent.sms.appid', '1400802196');
 INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`, `cfg_value`) VALUES (4, NULL, NULL, 1, '2019-4-15 21:36:17', '腾讯sms接口appkey', 'api.tencent.sms.appkey', 'bda767c668cf4fd93854ab367d6b3494');
 INSERT INTO `t_sys_cfg` (`id`, `create_by`, `create_time`, `modify_by`, `modify_time`, `cfg_desc`, `cfg_name`, `cfg_value`) VALUES (5, NULL, NULL, 1, '2019-4-15 21:36:17', '腾讯sms接口签名参数', 'api.tencent.sms.sign', '需要去申请咯');
