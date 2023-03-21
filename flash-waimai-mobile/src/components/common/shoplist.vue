@@ -159,7 +159,7 @@ export default {
 			//考虑到本地模拟数据是引用类型，所以返回一个新的数组
 			this.shopListArr = [...res];
 		},
-		//开发环境与编译环境loading隐藏方式不同
+		// 开发环境与编译环境loading隐藏方式不同
 		hideLoading(){
 			this.showLoading = false;
 		},

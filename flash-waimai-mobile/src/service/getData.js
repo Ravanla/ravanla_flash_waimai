@@ -1,6 +1,10 @@
 import fetch from '../config/fetch'
 import {getStore} from '../config/mUtils'
 
+// ###########################################################################start
+
+// ###########################################################################end
+
 /**
  * 获取首页默认地址
  */
@@ -453,7 +457,12 @@ export const deleteAddress = (userid, addressid) => fetch('/v1/users/' + userid 
 /**
  * 账号密码登录
  */
-export const accountLogin = (username, password, captchaCode, captchCodeId) => fetch('/v1/users/v2/login', {username, password, captchaCode, captchCodeId}, 'POST');
+export const accountLogin = (username, password, captchaCode, captchCodeId) => fetch('/v1/users/v2/login', {
+  username,
+  password,
+  captchaCode,
+  captchCodeId
+}, 'POST');
 
 
 /**

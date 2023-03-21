@@ -15,12 +15,12 @@
         <symbol xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 40 40" id="msiteActive">
           <defs>
             <linearGradient id="index.18edf5a_c" x1="50%" x2="50%" y1="100%" y2="0%">
-              <stop offset="0%" stop-color="#2BAEFF"></stop>
-              <stop offset="100%" stop-color="#0095FF"></stop>
+              <stop offset="0%" stop-color="#38b29b"></stop>
+              <stop offset="100%" stop-color="#38b29b"></stop>
             </linearGradient>
             <linearGradient id="index.18edf5a_d" x1="50%" x2="50%" y1="100%" y2="0%">
-              <stop offset="0%" stop-color="#29ADFF"></stop>
-              <stop offset="100%" stop-color="#0095FF"></stop>
+              <stop offset="0%" stop-color="#38b29b"></stop>
+              <stop offset="100%" stop-color="#38b29b"></stop>
             </linearGradient>
             <path id="index.18edf5a_a"
                   d="M30.426 22.095l2.678 5.742 2.943-1.372a3.173 3.173 0 0 0 1.537-4.212l-1.339-2.871-5.819 2.713z"></path>
@@ -76,11 +76,11 @@
             </mask>
           </defs>
           <g fill="none" fill-rule="evenodd">
-            <use stroke="#3190e8" stroke-width="4" mask="url(#discover-regular.8ef537f_b)"
+            <use stroke="#38b29b" stroke-width="4" mask="url(#discover-regular.8ef537f_b)"
                  xlink:href="#discover-regular.8ef537f_a"></use>
-            <path stroke="#3190e8" stroke-width="2"
+            <path stroke="#38b29b" stroke-width="2"
                   d="M12.79 28.126c-1.515.68-2.169.016-1.462-1.484l3.905-8.284c.47-.999 1.665-2.198 2.66-2.675l8.484-4.064c1.497-.717 2.153-.08 1.46 1.435l-3.953 8.64c-.46 1.006-1.647 2.186-2.655 2.64l-8.44 3.792z"></path>
-            <path fill="#3190e8"
+            <path fill="#38b29b"
                   d="M15.693 24.636c-.692.276-1.02-.06-.747-.746l2.21-4.946c.225-.505.721-.602 1.122-.202l2.563 2.563c.394.394.31.893-.203 1.122l-4.945 2.209z"></path>
           </g>
         </symbol>
@@ -104,8 +104,8 @@
         <symbol viewBox="0 0 38 38" id="orderActive">
           <defs>
             <linearGradient id="order.070ae2a_a" x1="50%" x2="50%" y1="100%" y2="0%">
-              <stop offset="0%" stop-color="#2BAEFF"></stop>
-              <stop offset="100%" stop-color="#0095FF"></stop>
+              <stop offset="0%" stop-color="#38b29b"></stop>
+              <stop offset="100%" stop-color="#38b29b"></stop>
             </linearGradient>
           </defs>
           <g fill="none" fill-rule="evenodd">
@@ -138,8 +138,8 @@
         <symbol viewBox="0 0 38 38" id="profileActive">
           <defs>
             <linearGradient id="profile.dbc5ebf_a" x1="50%" x2="50%" y1="100%" y2="0%">
-              <stop offset="0%" stop-color="#2BAEFF"></stop>
-              <stop offset="100%" stop-color="#0095FF"></stop>
+              <stop offset="0%" stop-color="#38b29b"></stop>
+              <stop offset="100%" stop-color="#38b29b"></stop>
             </linearGradient>
           </defs>
           <path fill="url(#profile.dbc5ebf_a)" fill-rule="evenodd"

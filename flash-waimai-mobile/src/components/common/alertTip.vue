@@ -20,7 +20,7 @@
             }
         },
         mounted(){
-      
+
         },
         props: ['alertText'],
         methods: {
@@ -95,7 +95,8 @@
             @include sc(.8rem, #fff);
             font-weight: bold;
             margin-top: .8rem;
-            background-color: #4cd964;
+            ////background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
             width: 100%;
             text-align: center;
             line-height: 1.8rem;
@@ -104,5 +105,5 @@
             border-bottom-right-radius: 0.25rem;
         }
     }
-    
+
 </style>

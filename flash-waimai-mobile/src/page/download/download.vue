@@ -44,7 +44,7 @@
         methods: {
             download(){
               this.showAlert = true;
-              this.alertText = '咱无提供'
+              this.alertText = '暂无提供'
 
                 //如果是ios用户则提示，否则直接下载
                 // if( this.system == 'IOS'){
@@ -64,10 +64,10 @@
         }
     }
 </script>
-  
+
 <style lang="scss" scoped>
     @import 'src/style/mixin';
-  
+
     .download_page{
         position: absolute;
         top: 0;
@@ -92,7 +92,8 @@
             margin-bottom: 1rem;
         }
         .determine{
-            background-color: #4cd964;
+            //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
             @include sc(.7rem, #fff);
             text-align: center;
             margin: 0 .7rem;

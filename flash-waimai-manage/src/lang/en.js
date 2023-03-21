@@ -39,7 +39,7 @@ export default {
     size: 'Global Size'
   },
   login: {
-    title: 'waimai',
+    title: 'ravanla_waimai',
     logIn: 'Log in',
     username: 'Username',
     password: 'Password'

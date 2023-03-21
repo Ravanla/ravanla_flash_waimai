@@ -12,13 +12,18 @@ let routerMode = 'hash';
 let imgBaseUrl = '';
 
 
-if (process.env.NODE_ENV == 'development') {
+if (process.env.NODE_ENV === 'development') {
   imgBaseUrl = 'http://localhost:8082/file/getImgStream?fileName='
   baseUrl = "http://localhost:8082"
-} else if (process.env.NODE_ENV == 'production') {
+} else if (process.env.NODE_ENV === 'production') {
   baseUrl = 'http://waimai-api.microapp.store/api';
   imgBaseUrl = 'http://waimai-api.microapp.store/api/file/getImgStream?fileName=';
 }
+
+// else if (process.env.NODE_ENV == 'production') {
+//   baseUrl = 'http://waimai-api.microapp.store/api';
+//   imgBaseUrl = 'http://waimai-api.microapp.store/api/file/getImgStream?fileName=';
+// }
 
 export {
   baseUrl,

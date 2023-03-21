@@ -205,7 +205,7 @@
     }
 
     .loginForm{
-        background-color: #fff;
+        background-color: #FFFFFF;
         margin-top: .6rem;
         .input_container{
             display: flex;
@@ -223,7 +223,8 @@
                 border-radius: 0.15rem;
             }
             .right_phone_number{
-                background-color: #4cd964;
+                //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
             }
         }
         .phone_number{
@@ -266,7 +267,9 @@
     .login_container{
         margin: 0 .5rem 1rem;
         @include sc(.7rem, #fff);
-        background-color: #4cd964;
+        ////background-color: #4cd964;
+        //background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
+        background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
         padding: .5rem 0;
         border: 1px;
         border-radius: 0.15rem;
@@ -305,7 +308,8 @@
         }
     }
     .change_to_text{
-        background-color: #4cd964;
+        //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
     }
     .to_forget{
         float: right;

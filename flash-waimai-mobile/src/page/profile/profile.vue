@@ -227,7 +227,8 @@ export default {
             -webkit-box-align: center;
             -ms-flex-align: center;
             align-items: center;
-            background:$blue;
+            //background:$blue;
+            background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
             padding: .666667rem .6rem;
             .privateImage{
                 display:inline-block;

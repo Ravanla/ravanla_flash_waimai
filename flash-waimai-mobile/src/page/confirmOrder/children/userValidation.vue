@@ -34,7 +34,7 @@
                 countDown: 60, //倒计时
                 sig: null, //sig值
                 reCallVerify: null, //重发验证信息
-                showAlert: false, 
+                showAlert: false,
                 alertText: null,
                 showVoiceTip: false, //显示语音验证
                 type: 'sms',
@@ -111,10 +111,10 @@
         }
     }
 </script>
-  
+
 <style lang="scss" scoped>
     @import 'src/style/mixin';
-  
+
     .validation_page{
         position: fixed;
         top: 0;
@@ -129,7 +129,8 @@
         }
     }
     .determine{
-        background-color: #4cd964;
+        //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
         @include sc(.7rem, #fff);
         text-align: center;
         margin: 0 .7rem;

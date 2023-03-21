@@ -67,7 +67,9 @@ $light_gray:#de9141;
   }
   .svg-container {
     padding: 6px 5px 6px 15px;
-    color: $dark_gray;
+    //color: $dark_gray;
+    //background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
+    color: #FFFFFF;
     vertical-align: middle;
     width: 30px;
     display: inline-block;
@@ -76,7 +78,8 @@ $light_gray:#de9141;
     position: relative;
     .title {
       font-size: 46px;
-      color: $light_gray;
+      //color: $light_gray;
+      color: #FFFFFF;
       margin: 0px auto 40px auto;
       text-align: center;
       font-weight: bold;

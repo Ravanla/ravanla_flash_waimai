@@ -52,7 +52,7 @@ export default {
     ...mapState([
       'cartList', 'remarkText', 'inputText', 'invoice', 'choosedAddress', 'userInfo'
     ]),
-    //备注页返回的信息进行处理
+    // 备注页返回的信息进行处理
     remarklist: function (){
       let str = new String;
       if (this.remarkText) {

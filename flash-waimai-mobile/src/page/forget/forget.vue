@@ -148,7 +148,7 @@
             },
             closeTip(){
                 this.showAlert = false;
-            }   
+            }
         }
     }
 
@@ -179,7 +179,8 @@
                 border-radius: 0.15rem;
             }
             .right_phone_number{
-                background-color: #4cd964;
+                //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
             }
         }
         .phone_number{
@@ -239,7 +240,8 @@
     .login_container{
         margin: 1rem .5rem;
         @include sc(.7rem, #fff);
-        background-color: #4cd964;
+        //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
         padding: .5rem 0;
         border: 1px;
         border-radius: 0.15rem;

@@ -205,7 +205,9 @@
         }
     }
     .determine{
-        background-color: #4cd964;
+        ////background-color: #4cd964;
+//background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
         @include sc(.7rem, #fff);
         text-align: center;
         margin: 0 .7rem;

@@ -88,7 +88,7 @@
       ...mapMutations([
         'SAVE_ORDER'
       ]),
-      //初始化获取信息
+      // 初始化获取信息
       async initData() {
         if (this.userInfo && this.userInfo.user_id) {
           let response = await getOrderList(this.userInfo.user_id, this.offset);
@@ -116,13 +116,13 @@
         }
         this.preventRepeat = false;
       },
-      //显示详情页
+      // 显示详情页
       showDetail(item) {
         this.SAVE_ORDER(item);
         this.preventRepeat = false;
         this.$router.push('/order/orderDetail');
       },
-      //生产环境与发布环境隐藏loading方式不同
+      // 生产环境与发布环境隐藏loading方式不同
       hideLoading() {
         this.showLoading = false;
       },

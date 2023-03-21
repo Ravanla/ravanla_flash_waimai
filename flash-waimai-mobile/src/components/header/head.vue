@@ -56,7 +56,8 @@
     @import '../../style/mixin';
 
     #head_top{
-        background-color: $blue;
+        //background-color: $blue;
+        background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
         position: fixed;
         z-index: 100;
         left: 0;

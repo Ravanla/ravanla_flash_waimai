@@ -39,7 +39,7 @@
         },
         computed: {
             ...mapState([
-                'userInfo', 
+                'userInfo',
             ]),
             couldPay: function (){
             	return (/^\d{10}$/.test(this.cartNumber))&&(/^\d{6}$/.test(this.passWord)) ;
@@ -65,10 +65,10 @@
         }
     }
 </script>
-  
+
 <style lang="scss" scoped>
     @import 'src/style/mixin';
-  
+
     .page_container{
         position: fixed;
         top: 0;
@@ -111,7 +111,8 @@
         font-weight: bold;
     }
     .could_pay{
-    	background-color: #4cd964;
+    	//background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
     }
     .Binding{
     	margin-top: 1rem;

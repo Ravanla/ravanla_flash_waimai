@@ -345,7 +345,8 @@
                 position: absolute;
                 top: 0;
                 left: 0;
-                background-color: #4cd964;
+                //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
                 @include wh(2rem, 2rem);
                 display: flex;
                 align-items: flex-end;
@@ -485,7 +486,8 @@
     }
   }
   .gotopay_acitvity{
-    background-color: #4cd964;
+    //background-color: #4cd964;
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
   }
 }
 .cart_food_list{
@@ -694,7 +696,7 @@
               display: flex;
               align-items: center;
               .time_spent_desc{
-                @include sc(.55rem, #666)
+                @include sc(.55rem, #666);
                 margin-left: .15rem;
               }
             }

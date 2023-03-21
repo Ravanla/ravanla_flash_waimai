@@ -43,7 +43,7 @@ export default {
     size: '布局大小'
   },
   login: {
-    title: 'waimai',
+    title: 'ravanla_waimai',
     logIn: '登录',
     username: '账号',
     password: '密码'

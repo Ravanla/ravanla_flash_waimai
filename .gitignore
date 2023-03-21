@@ -13,5 +13,4 @@ launch.json
 .vscode
 dist
 todo.md
-elm/*
-elm
+/runtime/upload/

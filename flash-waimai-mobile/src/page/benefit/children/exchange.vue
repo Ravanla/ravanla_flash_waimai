@@ -52,16 +52,16 @@
             }
         },
         methods: {
-            //线上环境采用固定的图片，编译环境获取真实的验证码
+            // 线上环境采用固定的图片，编译环境获取真实的验证码
             async getCaptchaCode(){
                 let res = await getcaptchas();
                 this.captchaCodeImg = res.code;
             },
-            //兑换红包
+            // 兑换红包
             async exchange(){
                 if (this.status) {
                     let res = await exChangeHongbao(this.userInfo.user_id, this.exchangeCode, this.codeNumber);
-                    //不成功则弹出提示框
+                    // 不成功则弹出提示框
                     if (res.message) {
                         this.getCaptchaCode();
                         this.showAlert = true;
@@ -72,10 +72,10 @@
         }
     }
 </script>
-  
+
 <style lang="scss" scoped>
     @import 'src/style/mixin';
-  
+
     .page{
         position: fixed;
         top: 0;
@@ -100,7 +100,9 @@
         margin-top: 0.7rem;
     }
     .active{
-        background-color: #4cd964;
+        //// background-color: #4cd964;
+// background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
+background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
     }
     .exchange_code{
         margin-top: 0.7rem;
