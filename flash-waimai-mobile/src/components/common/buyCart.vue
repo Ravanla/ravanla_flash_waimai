@@ -119,7 +119,8 @@
         }
         svg{
             @include wh(.9rem, .9rem);
-            fill: #3190e8;
+            //fill: #3190e8;
+            fill: #38b29a;
         }
         .specs_reduce_icon{
             fill: #999;
@@ -138,9 +139,11 @@
                     display: block;
                     @include sc(.55rem, #fff);
                     padding: .1rem .2rem;
-                    background-color: $blue;
+                    background-color: #38b29a;
+                    //background-color: $blue;
                     border-radius: 0.2rem;
-                    border: 1px solid $blue;
+                    border: 1px solid #38b29a;
+                    //border: 1px solid $blue;
                 }
             }
         }

@@ -238,7 +238,7 @@
       }
     }
     .activity_menu{
-      border-left: 0.15rem solid #3190e8;
+      border-left: 0.15rem solid #38b29a;
       background-color: #fff;
       span:nth-of-type(1){
         font-weight: bold;
@@ -425,6 +425,7 @@ background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
     .cart_icon_container{
       display: flex;
       background-color: #3d3d3f;
+      //background-color: #FFFFFF;
       position: absolute;
       padding: .4rem;
       border: 0.18rem solid #444;
@@ -453,7 +454,7 @@ background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
       animation: mymove .5s ease-in-out;
     }
     .cart_icon_activity{
-      background-color: #3190e8;
+      background-color: #38b29a;
     }
     .cart_num{
       @include ct;
@@ -553,7 +554,8 @@ background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
         }
         svg{
           @include wh(.9rem, .9rem);
-          fill: #3190e8;
+          fill: #38b29a;
+          //fill: #3190e8;
         }
         .specs_reduce_icon{
           fill: #999;
@@ -591,8 +593,8 @@ background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
       border-bottom: 0.12rem solid #fff;
     }
     .activity_show{
-      color: #3190e8;
-      border-color: #3190e8;
+      color: #38b29a;
+      border-color: #38b29a;
     }
   }
 }
@@ -662,7 +664,7 @@ background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
       color: #aaa;
     }
     .tagActivity{
-      background-color: #3190e8;
+      background-color: #38b29a;
       color: #fff;
     }
   }
@@ -840,7 +842,7 @@ background: linear-gradient(135deg, rgb(57, 167, 176), rgb(56, 183, 145));
   left: 30px;
   svg{
     @include wh(.9rem, .9rem);
-    fill: #3190e8;
+    fill: #38b29a;
   }
 }
 .fade-enter-active, .fade-leave-active {

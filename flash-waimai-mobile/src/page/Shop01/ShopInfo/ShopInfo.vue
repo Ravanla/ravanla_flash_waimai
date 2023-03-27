@@ -100,9 +100,10 @@ export default {
 
   watch: {
     info() { // 刷新流程--> 更新数据
-      this.$nextTick(() => {
-        this._initScroll()
-      })
+      // this.$nextTick(() => {
+      //   this._initScroll()
+      // })
+      this._initScroll()
     }
   }
 }

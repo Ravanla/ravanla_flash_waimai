@@ -244,8 +244,10 @@
           line-height: 1.6rem;
 
           .buy_again {
-            @include sc(.55rem, #3190e8);
-            border: 0.025rem solid #3190e8;
+            //@include sc(.55rem, #3190e8);
+            //border: 0.025rem solid #3190e8;
+            @include sc(.55rem, #38b29a);
+            border: 0.025rem solid #38b29a;
             padding: .1rem .2rem;
             border-radius: .15rem;
           }

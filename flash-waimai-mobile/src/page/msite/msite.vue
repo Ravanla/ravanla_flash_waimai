@@ -29,25 +29,26 @@
       </div>
       <img src="../../images/fl.svg" class="fl_back animation_opactiy" v-else>
     </nav>
-    <!--    <div class="shop_list_container">-->
-    <!--      <header class="shop_header">-->
-    <!--        <svg class="shop_icon">-->
-    <!--          <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#shop"></use>-->
-    <!--        </svg>-->
-    <!--        <span class="shop_header_title">附近商家</span>-->
-    <!--      </header>-->
-    <!--      <shop-list v-if="hasGetData" :geohash="geohash"></shop-list>-->
-    <!--    </div>-->
+        <div class="shop_list_container">
+          <header class="shop_header">
+            <svg class="shop_icon">
+              <use xmlns:xlink="http://www.w3.org/1999/xlink" xlink:href="#shop"></use>
+            </svg>
+            <span class="shop_header_title">附近商家</span>
+          </header>
+<!--          <shop-list v-if="hasGetData" :geohash="geohash"></shop-list>-->
+          <shop-list v-if="hasGetData" :geohash="geohash"></shop-list>
+        </div>
 
 <!--    #####################################start-->
 
-    <div class="msite_shop_list">
-      <div class="shop_header">
-        <i class="iconfont icon-xuanxiang"></i>
-        <span class="shop_header_title">附近商家</span>
-      </div>
-      <ShopList></ShopList>
-    </div>
+<!--    <div class="msite_shop_list">-->
+<!--      <div class="shop_header">-->
+<!--        <i class="iconfont icon-xuanxiang"></i>-->
+<!--        <span class="shop_header_title">附近商家</span>-->
+<!--      </div>-->
+<!--      <ShopList></ShopList>-->
+<!--    </div>-->
 
 <!--    #####################################end-->
     <foot-guide></foot-guide>

@@ -26,8 +26,8 @@ const login = r => require.ensure([], () => r(require('../page/login/login')), '
 const profile = r => require.ensure([], () => r(require('../page/profile/profile')), 'profile')
 const forget = r => require.ensure([], () => r(require('../page/forget/forget')), 'forget')
 
-// const order = r => require.ensure([], () => r(require('../page/order/order')), 'order')
-const Order = r => require.ensure([], () => r(require('../page/Order01/Order')), 'Order')
+const order = r => require.ensure([], () => r(require('../page/order/order')), 'order')
+// const Order = r => require.ensure([], () => r(require('../page/Order01/Order')), 'Order')
 
 const orderDetail = r => require.ensure([], () => r(require('../page/order/children/orderDetail')), 'orderDetail')
 const vipcard = r => require.ensure([], () => r(require('../page/vipcard/vipcard')), 'vipcard')
@@ -212,23 +212,23 @@ export default [{
       path: '/forget',
       component: forget
     },
-    // //订单列表页
-    // {
-    //   path: '/order',
-    //   component: order,
-    //   children: [{
-    //     path: 'orderDetail', //订单详情页
-    //     component: orderDetail,
-    //   },]
-    // },
     //订单列表页
     {
-      path: '/Order',
-      component: Order,
-      meta: {
-        showFooter: false
-      }
+      path: '/order',
+      component: order,
+      children: [{
+        path: 'orderDetail', //订单详情页
+        component: orderDetail,
+      },]
     },
+    // //订单列表页
+    // {
+    //   path: '/Order',
+    //   component: Order,
+    //   meta: {
+    //     showFooter: false
+    //   }
+    // },
     //vip卡页
     {
       path: '/vipcard',

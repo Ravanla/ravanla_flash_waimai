@@ -106,11 +106,11 @@
                 span{
                     @include sc(.6rem, #333);
                     padding: .3rem .6rem;
-                    border: 0.025rem solid #3190e8;
+                    border: 0.025rem solid #38b29a;
                     border-left: 0;
                 }
                 .first{
-                    border-left: 0.025rem solid #3190e8;
+                    border-left: 0.025rem solid #38b29a;
                     border-top-left-radius: .2rem;
                     border-bottom-left-radius: .2rem;
                 }
@@ -120,7 +120,7 @@
                 }
                 .choosed{
                     color: #fff;
-                    background-color: #3190e8;
+                    background-color: #38b29a;
                 }
             }
         }
