@@ -8,10 +8,10 @@ const search = r => require.ensure([], () => r(require('../page/search/search'))
 
 const shop = r => require.ensure([], () => r(require('../page/shop/shop')), 'shop')
 
-const Shop01 = r => require.ensure([], () => r(require('../page/Shop01/Shop01')), 'Shop01')
-const ShopGoods = r => require.ensure([], () => r(require('../page/Shop01/ShopGoods/ShopGoods')), 'ShopGoods')
-const ShopRatings = r => require.ensure([], () => r(require('../page/Shop01/ShopRatings/ShopRatings')), 'ShopRatings')
-const ShopInfo = r => require.ensure([], () => r(require('../page/Shop01/ShopInfo/ShopInfo')), 'ShopInfo')
+// const Shop01 = r => require.ensure([], () => r(require('../page/Shop01/Shop01')), 'Shop01')
+// const ShopGoods = r => require.ensure([], () => r(require('../page/Shop01/ShopGoods/ShopGoods')), 'ShopGoods')
+// const ShopRatings = r => require.ensure([], () => r(require('../page/Shop01/ShopRatings/ShopRatings')), 'ShopRatings')
+// const ShopInfo = r => require.ensure([], () => r(require('../page/Shop01/ShopInfo/ShopInfo')), 'ShopInfo')
 // import Shop01 from '../page/Shop01/Shop01'
 // import ShopGoods from '../page/Shop01/ShopGoods/ShopGoods'
 // import ShopRatings from '../page/Shop01/ShopRatings/ShopRatings'
@@ -120,27 +120,27 @@ export default [{
     },
     // #################################################################### start
 
-    {
-      path: '/Shop01',
-      component: Shop01,
-      children: [
-        {
-          path: 'ShopGoods',
-          component: ShopGoods
-        },
-        {
-          path: 'ShopRatings',
-          component: ShopRatings
-        },
-        {
-          path: 'ShopInfo',
-          component: ShopInfo
-        },
-        {
-          path: '',
-          redirect: 'ShopGoods'
-        }]
-    },
+    // {
+    //   path: '/Shop01',
+    //   component: Shop01,
+    //   children: [
+    //     {
+    //       path: 'ShopGoods',
+    //       component: ShopGoods
+    //     },
+    //     {
+    //       path: 'ShopRatings',
+    //       component: ShopRatings
+    //     },
+    //     {
+    //       path: 'ShopInfo',
+    //       component: ShopInfo
+    //     },
+    //     {
+    //       path: '',
+    //       redirect: 'ShopGoods'
+    //     }]
+    // },
 
     // ####################################################################end
 
